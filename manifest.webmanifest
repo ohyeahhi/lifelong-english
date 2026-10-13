@@ -1,0 +1,23 @@
+{
+ "name": "평생교육학 영어 학습 프로그램",
+ "short_name": "평생교육 영어",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#F2F4F6",
+ "theme_color": "#0A8BD6",
+ "lang": "ko",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}

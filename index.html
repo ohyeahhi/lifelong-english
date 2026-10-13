@@ -3,9 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="숭실대 평생교육학 박사과정 면접 영어 지문 해석 연습">
-<meta name="theme-color" content="#0A8BD6">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A8BD6'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='800'%3EEN%3C/text%3E%3C/svg%3E">
+<meta name="description" content="평생교육학 대학원 면접 영어 지문 해석 연습: 전공 용어 카드, 학술지 초록 해석, 학습 기록">
+<meta name="theme-color" content="#F2F4F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101013" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="평생교육 영어">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -185,6 +192,50 @@ ul.clean{margin:0;padding-left:1.1em;display:grid;gap:4px}
 .qa{display:grid;gap:4px;padding:12px 0;border-top:1px solid var(--line)}
 .qa:first-child{border-top:0}
 @media (max-width:420px){.tabs button{font-size:.8rem;padding:8px 2px}}
+
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.tabs button svg{display:none}
+.cardbar{display:flex;gap:8px;justify-content:center}
+.card{touch-action:pan-y}
+.card[data-dir="know"]{box-shadow:inset 0 0 0 3px var(--good)}
+.card[data-dir="again"]{box-shadow:inset 0 0 0 3px var(--warn)}
+@media (max-width:640px){
+  .wrap{padding-top:16px;padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+  h1{font-size:1.4rem}
+  .eyebrow{font-size:.78rem}
+  .top{align-items:center;padding-bottom:4px}
+  .dday{font-size:.88rem;padding:6px 12px}
+  .tabs{position:fixed;left:0;right:0;bottom:0;top:auto;margin:0;z-index:30;border-radius:0;gap:0;grid-template-columns:repeat(auto-fit,minmax(0,1fr));
+    background:color-mix(in srgb,var(--surface) 90%,transparent);-webkit-backdrop-filter:saturate(1.8) blur(18px);backdrop-filter:saturate(1.8) blur(18px);
+    box-shadow:0 -1px 0 var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+  .tabs button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.68rem;padding:6px 2px;border-radius:10px;min-height:52px;justify-content:center}
+  .tabs button svg{display:block;width:24px;height:24px}
+  .tabs button[aria-selected="true"]{background:none;box-shadow:none;color:var(--accent)}
+  .btn{min-height:46px}
+  .btn.small{min-height:40px}
+  .chip{min-height:38px}
+  .stats{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px}
+  .stats .stat{padding:14px 12px;gap:4px}
+  .stats .stat b{font-size:1.3rem}
+  .stats .stat .sub{display:none}
+  .chiprow{flex-wrap:nowrap;overflow-x:auto;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .chiprow::-webkit-scrollbar{display:none}
+  .chiprow .chip{flex:none}
+  .card{min-height:46vh;padding:40px 18px}
+  .card .en{font-size:1.75rem}
+  .cardbar{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .cardbar .btn{min-height:58px;font-size:1.05rem;border-radius:16px}
+  .tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}
+  .tools .btn,.tools .chip{min-height:46px;justify-content:center;border-radius:14px;padding-inline:6px}
+  .pop{position:fixed!important;left:12px!important;right:12px;top:auto!important;bottom:calc(84px + env(safe-area-inset-bottom,0px));max-width:none!important;font-size:1rem;padding:16px 18px;border-radius:18px}
+  .panel,.draft,.journal{padding:18px}
+  .selfeval .btn{min-height:52px}
+  .seg button{font-size:.78rem;padding:10px 4px}
+  .plist{gap:10px}
+  .task .row.between{flex-wrap:nowrap;gap:10px}
+  .task .row.between > span{min-width:0}
+  .task .row.between .btn{flex:none}
+}
 .savebar{margin-top:32px;font-size:.82rem;color:var(--muted);text-align:center}
 .confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 14px;background:color-mix(in srgb,var(--bad) 10%,var(--surface));border-radius:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:active,.pcard:active{transform:none}}
@@ -193,23 +244,21 @@ ul.clean{margin:0;padding-left:1.1em;display:grid;gap:4px}
 <div class="wrap">
   <header class="top">
     <div class="titles">
-      <p class="eyebrow">숭실대 평생교육학 박사과정 면접 준비</p>
+      <p class="eyebrow">평생교육학 대학원 면접 · 영어 지문 해석</p>
       <h1>평생교육학 영어 학습 프로그램</h1>
     </div>
     <span class="dday" id="ddayBadge" hidden></span>
   </header>
   <nav class="tabs" role="tablist" aria-label="메뉴">
-    <button role="tab" data-tab="home" aria-selected="true">오늘</button>
-    <button role="tab" data-tab="terms" aria-selected="false">용어</button>
-    <button role="tab" data-tab="read" aria-selected="false">초록 해석</button>
-    <button role="tab" data-tab="mine" aria-selected="false">내 연구</button>
-    <button role="tab" data-tab="log" aria-selected="false">기록</button>
+    <button role="tab" data-tab="home" aria-selected="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>오늘</button>
+    <button role="tab" data-tab="terms" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="13" height="16" rx="2"/><path d="M8 3h11a2 2 0 0 1 2 2v13"/></svg>용어</button>
+    <button role="tab" data-tab="read" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>초록 해석</button>
+    <button role="tab" data-tab="log" aria-selected="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>기록</button>
   </nav>
   <main>
     <section id="tab-home"></section>
     <section id="tab-terms" hidden></section>
     <section id="tab-read" hidden></section>
-    <section id="tab-mine" hidden></section>
     <section id="tab-log" hidden></section>
   </main>
   <p class="savebar" id="saveState">이 브라우저에 저장돼요</p>
@@ -217,6 +266,8 @@ ul.clean{margin:0;padding-left:1.1em;display:grid;gap:4px}
 <div class="pop" id="pop" hidden></div>
 
 <script>
+const SHARE = true;
+const LSP = SHARE ? "lls-" : "lle-";
 // ---------- data ----------
 const TERMS_RAW = [
 // [english, korean, category, example, match-regex]
@@ -487,45 +538,9 @@ const TERMS_RAW = [
 ["indirect effect","간접효과","초록 표현","Social presence had an indirect effect through flow.","indirect(?:ly| effects?)"],
 
 
-["parenthood","부모됨","내 연구","Parenthood is a major transition in adult life."],
-["transition to parenthood","부모로의 전환","내 연구","The transition to parenthood reshapes marital relationships."],
-["parental identity","부모정체성","내 연구","Parental identity begins to form before the child is born.","parental identit(?:y|ies)"],
-["prospective parents","예비부모","내 연구","Prospective parents expressed a need to understand themselves first.","prospective parents?"],
-["newlywed couples","신혼부부","내 연구","Newlywed couples discussed their family values.","newlywed couples?|newlyweds?"],
-["family of origin","원가족","내 연구","Participants reflected on their family-of-origin experiences.","family[- ]of[- ]origin"],
-["marital relationship","부부관계","내 연구","Parenthood often changes the marital relationship.","marital relationships?"],
-["family values","가족가치","내 연구","Couples negotiated their family values through dialogue.","family values?"],
-["parent education","부모교육","내 연구","Parent education has focused on child-rearing skills."],
-["child-rearing","양육","내 연구","Child-rearing skills alone are not enough.","child-rearing(?: skills)?"],
-["learning needs","학습요구","내 연구","The study explored the learning needs of prospective parents.","learning needs?"],
-["life transition","생애전환","내 연구","Choosing a major can be seen as a life transition.","life transitions?"],
-["undeclared students","무전공 학생","내 연구","Undeclared students explore majors during their first year.","undeclared(?: students?| majors?)?"],
-["liberal studies","자유전공","내 연구","Liberal studies admissions give students more choice."],
-["major exploration","전공탐색","내 연구","Universities offer major exploration programs."],
-["choosing a major","전공선택","내 연구","Choosing a major was a learning process.","choos(?:e|ing) (?:a |their )?majors?|major (?:selection|choice)|choice of majors?"],
-["career identity","진로정체성","내 연구","Career identity develops through exploration.","career identit(?:y|ies)"],
-["self-understanding","자기이해","내 연구","Self-understanding is a core learning outcome."],
-["career decision-making self-efficacy","진로결정 자기효능감","내 연구","Career decision-making self-efficacy predicted major satisfaction."],
-["college adjustment","대학적응","내 연구","College adjustment is a key issue for first-year students."],
-["first-year students","대학 신입생","내 연구","First-year students wrote reflective journals.","first-year students?|freshm[ae]n"],
-["general education","교양교육","내 연구","General education courses support students' life design.","general education|liberal arts(?: courses?)?"],
-["extracurricular programs","비교과 프로그램","내 연구","Extracurricular programs complement regular courses.","extracurricular(?: programs?)?"],
-["life design","생애설계","내 연구","Life design education helps students plan their lives.","life design|life planning"],
-["career planning","진로설계","내 연구","The course covered career planning and self-development."],
-["reflective journals","성찰일지","내 연구","Data were collected from reflective journals.","reflective journals?"],
-["narrative reflection","서사적 성찰","내 연구","Narrative reflection helped students reinterpret their experiences."],
-["self-authorship","자기저작 (Baxter Magolda)","내 연구","Self-authorship is the capacity to define one's own beliefs and identity."],
-["career construction theory","진로구성이론 (Savickas)","내 연구","Career construction theory views careers as stories people build."],
-["transition theory","전환이론 (Schlossberg)","내 연구","Schlossberg's transition theory highlights the 4S: situation, self, support, and strategies."],
-["emerging adulthood","성인진입기 (Arnett)","내 연구","Emerging adulthood is a period of identity exploration."],
-["identity formation","정체성 형성","내 연구","Identity formation continues throughout adulthood."],
-["decision-making","의사결정","내 연구","Students' decision-making was shaped by others."],
-["program development","프로그램 개발","내 연구","The findings provide a basis for program development."],
-["expert validity","전문가 타당도","내 연구","The program was reviewed for expert validity.","expert validity|content validity"],
-["pilot program","파일럿 프로그램","내 연구","A pilot program was implemented with ten couples.","pilot (?:programs?|study)"],
 ];
-const EXKO = {"lifelong education": "평생교육은 전 생애에 걸친 학습을 지원한다.", "lifelong learning": "평생학습은 고령화 사회에서 핵심 정책 의제가 되었다.", "adult education": "성인교육은 역사적으로 사회운동과 연결되어 왔다.", "continuing education": "대학들은 직장인을 위한 계속교육을 확대하였다.", "andragogy": "놀스(Knowles)는 앤드라고지를 성인의 학습을 돕는 기술이자 과학으로 정의하였다.", "pedagogy": "앤드라고지는 흔히 페다고지와 대비된다.", "adult learners": "성인학습자는 풍부한 삶의 경험을 교실에 가져온다.", "older adults": "지역사회 학습 프로그램에 참여하는 노인이 늘고 있다.", "middle-aged workers": "중장년 근로자는 기술을 새로 익혀야 한다는 압박을 받는다.", "non-traditional students": "비전통적 학생은 일, 가정, 학업을 병행하는 경우가 많다.", "formal education": "많은 학습자가 형식 학교교육에서 배제되어 왔다.", "non-formal learning": "비형식학습은 학교 밖의 조직된 프로그램에서 이루어진다.", "informal learning": "무형식학습은 일상 경험을 통해 자연스럽게 일어난다.", "learning society": "학습사회를 만들려면 모든 시민에게 기회가 주어져야 한다.", "learning community": "학습공동체는 구성원 간의 상호 지지를 길러 준다.", "life course": "학습 요구는 생애과정에 따라 달라진다.", "learner-centered": "이 프로그램은 학습자 중심 접근을 채택하였다.", "learning outcomes": "본 연구는 12주 후의 학습성과를 측정하였다.", "self-directed learning": "자기주도학습은 성인교육의 핵심 개념이다.", "transformative learning": "메지로우의 전환학습 이론은 관점의 변화를 강조한다.", "perspective transformation": "관점 전환은 흔히 혼란스러운 딜레마에서 시작된다.", "experiential learning": "콜브의 경험학습 순환은 네 단계로 이루어진다.", "critical reflection": "비판적 성찰은 학습자가 자신의 가정을 의심해 보도록 돕는다.", "reflective practice": "성찰적 실천은 전문성 성장에 필수적이다.", "communities of practice": "레이브와 웽거는 실천공동체 개념을 제시하였다.", "situated learning": "상황학습은 학습을 사회적 실천에의 참여로 본다.", "learning motivation": "학습동기는 프로그램 이수를 예측하였다.", "learning agility": "학습민첩성은 경험으로부터 빠르게 배우는 능력을 말한다.", "career adaptability": "경력적응력은 근로자가 경력전환에 대처하도록 돕는다.", "empowerment": "문해교육은 임파워먼트의 과정이 될 수 있다.", "social capital": "학습 참여는 사회적 자본을 쌓을 수 있다.", "professional identity": "평생교육사는 시간에 걸쳐 전문직 정체성을 구성해 간다.", "sense of belonging": "함께 배우는 과정은 강한 소속감을 만들어 냈다.", "conscientization": "프레이리의 의식화는 학습을 사회 변화와 연결한다.", "learning persistence": "사회적 지원은 학습지속을 높였다.", "barriers to participation": "크로스(Cross)는 참여 장애요인을 세 가지 유형으로 분류하였다.", "situational barriers": "시간 부족은 대표적인 상황적 장애요인이다.", "institutional barriers": "경직된 시간표는 기관적 장애요인이다.", "dispositional barriers": "낮은 자신감은 성향적 장애요인이다.", "lifelong educator": "평생교육사는 지역사회 프로그램을 기획하고 운영한다.", "Lifelong Learning City": "190개가 넘는 지방자치단체가 평생학습도시로 지정되었다.", "local governments": "지방자치단체는 평생교육 정책에서 중심적인 역할을 한다.", "adult literacy education": "성인문해교육은 학교교육을 받지 못한 사람들을 위한 것이다.", "literacy": "문해는 읽고 쓰는 능력 그 이상이다.", "digital literacy": "노인 대상 디지털 리터러시 프로그램이 확대되고 있다.", "digital divide": "디지털 격차는 사회적 불평등을 심화시킨다.", "digital transformation": "디지털 전환은 성인이 배우는 방식을 바꾸어 놓았다.", "credit bank system": "학점은행제는 성인이 유연하게 학위를 취득할 수 있게 한다.", "reskilling": "리스킬링 프로그램은 근로자가 새로운 직무로 옮겨 가도록 돕는다.", "upskilling": "기술 변화에 발맞추려면 업스킬링이 필요하다.", "civic engagement": "학습 프로그램은 지역사회의 시민참여를 촉진하였다.", "marginalized groups": "정책은 소외계층에게 먼저 닿아야 한다.", "vulnerable groups": "취약계층은 학습에 여러 장애요인을 겪는다.", "community-based": "지역사회 기반 프로그램은 주민의 일상과 가깝다.", "faith-based": "신앙 기반 단체는 다양한 성인학습 프로그램을 제공한다.", "religious institutions": "종교기관은 오랫동안 성인학습의 장으로 기능해 왔다.", "professional development": "교육자에게는 지속적인 전문성 개발이 요구된다.", "performance indicators": "단기 성과지표는 프로그램의 목표를 왜곡할 수 있다.", "sustainability": "사업의 지속가능성은 주민 참여에 달려 있다.", "policy recommendations": "본 연구는 정책적 제언으로 마무리된다.", "career transition": "중년기의 경력전환에는 새로운 학습이 필요한 경우가 많다.", "later-life learning": "노년기 학습은 안녕감에 기여한다.", "social support": "가족의 사회적 지원은 학습자가 학습을 이어 가도록 격려하였다.", "life satisfaction": "참여는 삶의 만족도와 정적인 관련이 있었다.", "qualitative research": "본 질적 연구는 학습자의 경험을 탐색하였다.", "quantitative research": "가설 검증을 위해 양적 연구 설계를 사용하였다.", "mixed methods": "혼합연구 설계로 설문과 면담을 결합하였다.", "in-depth interviews": "8명의 연구참여자를 대상으로 심층면담을 실시하였다.", "focus group interviews": "프로그램 담당자들과 포커스그룹 인터뷰를 진행하였다.", "phenomenological approach": "자료는 현상학적 접근으로 분석하였다.", "grounded theory": "근거이론은 자료로부터 이론을 구축하는 것을 목표로 한다.", "narrative inquiry": "내러티브 탐구는 연구참여자의 생애 이야기에 초점을 둔다.", "axial coding": "개방코딩, 축코딩, 선택코딩을 활용하였다.", "selective coding": "핵심범주는 선택코딩을 통해 도출되었다.", "core category": "핵심범주는 '균형 찾기'로 확인되었다.", "survey": "412명의 근로자로부터 설문 자료를 수집하였다.", "structural equation modeling": "모형 검증에는 구조방정식모형을 사용하였다.", "mediating effect": "학습민첩성은 그 관계를 부분 매개하였다.", "moderating effect": "사회적 지원은 장애요인의 영향을 조절하였다.", "quasi-experimental design": "준실험설계를 적용하였다.", "experimental group": "실험집단은 10주 동안 프로그램에 참여하였다.", "control group": "통제집단은 처치를 받지 않았다.", "participants": "연구참여자는 지역 복지관을 통해 모집하였다.", "significant": "그 차이는 통계적으로 유의하였다.", "hypothesized model": "연구모형은 양호한 적합도를 보였다.", "case study": "세 학습도시에 대한 사례연구를 수행하였다.", "regression analysis": "위계적 회귀분석을 실시하였다.", "the purpose of this study": "본 연구의 목적은 ~를 탐색하는 것이다.", "aim to": "본 연구는 ~를 규명하는 것을 목적으로 한다.", "to this end": "이를 위해 설문 자료를 수집하였다.", "drawing on": "면담 자료를 바탕으로, 본 연구는 ~를 도출한다.", "the findings revealed": "연구 결과, 학습자들은 ~한 것으로 나타났다.", "positive effect": "~는 ~에 유의한 정적 영향을 미쳤다.", "negative effect": "~는 ~에 가장 강한 부적 영향을 미쳤다.", "implications": "본 연구는 실천을 위한 시사점을 제공한다.", "suggest": "이러한 결과는 ~임을 시사한다.", "call for": "이러한 결과는 유연한 제도의 필요성을 제기한다.", "highlight": "이러한 결과는 ~의 가능성을 보여준다.", "explore": "본 연구는 학습의 의미를 탐색한다.", "examine": "본 연구는 ~ 간의 관계를 규명하였다.", "investigate": "본 연구는 ~의 장애요인을 조사하였다.", "whereas": "~는 향상되었으나, ~에서는 차이가 나타나지 않았다.", "adult learning": "성인학습은 여러 면에서 아동의 학습과 다르다.", "learning participation": "학습참여율은 학력에 따라 다르게 나타난다.", "older adult education": "고령사회에서 노인교육이 확대되었다.", "intergenerational learning": "세대 간 학습은 노인과 젊은 세대를 함께 모은다.", "workplace learning": "일터학습에는 공식 훈련과 무형식학습이 모두 포함된다.", "human resource development": "인적자원개발은 성인교육과 밀접하게 관련되어 있다.", "vocational education and training": "직업교육훈련은 성인이 취업을 준비하도록 돕는다.", "recognition of prior learning": "선행학습인정은 성인이 이미 알고 있는 것을 인정해 준다.", "lifelong learning institutions": "평생교육기관에는 평생학습관, 대학, 비영리단체 등이 있다.", "learning opportunities": "정책은 모두를 위한 학습기회 확대를 목표로 한다.", "educational equity": "교육형평성은 평생교육의 핵심 가치이다.", "social inclusion": "평생학습은 사회적 포용을 촉진할 수 있다.", "active aging": "활기찬 노화는 노년기의 참여와 건강을 강조한다.", "well-being": "학습은 노인의 안녕감에 기여한다.", "quality of life": "참여는 학습자의 삶의 질을 높였다.", "midlife": "중년기는 흔히 경력을 되돌아보는 시기이다.", "later life": "노년기의 학습은 사회적 연결을 돕는다.", "learning culture": "지원적인 학습문화는 참여를 독려한다.", "learning organization": "센게(Senge)는 학습조직이라는 개념을 널리 알렸다.", "knowledge society": "지식사회에서 학습은 끝나지 않는다.", "MOOCs": "MOOC는 대학 강좌를 대중에게 열어 주었다.", "online learning": "팬데믹 기간 동안 온라인 학습이 빠르게 늘어났다.", "blended learning": "블렌디드 러닝은 온라인 수업과 대면 수업을 결합한다.", "micro-credentials": "마이크로 크리덴셜은 짧은 학습 경험을 인증한다.", "readiness to learn": "놀스는 성인의 학습준비도가 삶의 과업과 연결되어 있다고 주장하였다.", "self-directed learning readiness": "자기주도학습 준비도는 구글리엘미노(Guglielmino)의 척도로 측정하였다.", "self-efficacy": "자기효능감은 학습만족에 직접적인 영향을 미쳤다.", "intrinsic motivation": "내재적 동기는 배움 그 자체를 위한 학습을 이끈다.", "extrinsic motivation": "외재적 동기는 자격증과 같은 보상에서 비롯된다.", "goal-oriented learners": "훌(Houle)은 학습자를 목표지향형, 활동지향형, 학습지향형으로 분류하였다.", "disorienting dilemma": "혼란스러운 딜레마는 전환학습을 촉발할 수 있다.", "meaning perspective": "전환학습은 개인의 의미관점을 변화시킨다.", "critical pedagogy": "비판교육학은 교육을 사회정의와 연결한다.", "banking education": "프레이리는 학습자를 빈 그릇처럼 취급하는 은행저금식 교육을 비판하였다.", "popular education": "민중교육은 라틴아메리카의 사회운동 속에서 발전하였다.", "lifespan development": "전생애 발달 관점은 성장이 노년기까지 계속된다고 본다.", "learning transfer": "일터로의 학습전이는 제한적인 경우가 많다.", "tacit knowledge": "암묵지는 말로 표현하기 어렵다.", "reflection-in-action": "쇤(Schön)은 전문적 실천에서의 행위 중 성찰을 설명하였다.", "key competencies": "OECD는 평생학습을 위한 핵심역량을 제시하였다.", "competency": "각 역량은 행동지표로 정의되었다.", "learning flow": "학습몰입은 사회적 실재감의 효과를 매개하였다.", "resilience": "학습경험은 노인의 회복탄력성을 높였다.", "agency": "성인학습자는 자신의 학습을 만들어 가는 데 행위주체성을 발휘한다.", "cultural capital": "문화자본은 누가 학습에 참여하는지에 영향을 미친다.", "generativity": "에릭슨은 생산성을 다음 세대에 대한 관심으로 설명하였다.", "social presence": "사회적 실재감은 온라인에서 다른 사람과 함께 있다는 느낌이다.", "learning satisfaction": "학습만족은 강좌가 끝난 후 측정하였다.", "engagement": "학습자의 학습참여는 강좌 이수를 예측한다.", "Lifelong Education Act": "평생교육법은 1999년에 제정되었다.", "National Institute for Lifelong Education": "국가평생교육진흥원은 정책 시행을 지원한다.", "lifelong learning voucher": "평생교육이용권은 저소득 성인을 지원한다.", "lifelong learning account": "평생학습계좌제는 개인의 학습 이력을 기록한다.", "university lifelong education": "대학 평생교육은 학위과정의 성인학습자를 지원한다.", "part-time students": "시간제 학생은 전일제로 일하는 경우가 많다.", "program planning": "프로그램 기획은 요구분석에서 시작된다.", "needs assessment": "지역 주민을 대상으로 요구분석을 실시하였다.", "program evaluation": "프로그램 평가는 커크패트릭의 4수준 모형을 활용하였다.", "volunteering": "자원봉사는 새로운 학습의 장이 되었다.", "community education": "지역사회교육은 지역의 요구에 대응한다.", "residents": "주민들은 프로그램 기획에 참여하였다.", "civic education": "시민교육은 민주적 시민성을 기른다.", "citizenship": "학습공동체는 능동적 시민성을 키운다.", "multicultural families": "다문화가족 대상 프로그램이 확대되었다.", "marriage migrant women": "결혼이주여성들은 한국어 수업에 참여하였다.", "multicultural education": "다문화교육은 동화주의를 넘어서야 한다.", "assimilation": "동화 지향 프로그램은 이주민의 문화를 외면한다.", "North Korean defectors": "평생교육은 북한이탈주민의 정착을 지원한다.", "adults with disabilities": "장애 성인은 학습에 여러 장애요인을 겪는다.", "career-break women": "경력단절여성은 훈련을 통해 재취업을 모색한다.", "reemployment": "재취업 교육은 일터로 돌아가려는 여성을 지원한다.", "retirement": "은퇴는 노년기의 중요한 전환이다.", "baby boomers": "베이비붐 세대가 은퇴기에 접어들고 있다.", "low-income": "저소득 성인은 학습 참여가 더 낮다.", "educational welfare": "평생교육은 교육복지의 일부이다.", "learning clubs": "학습동아리는 개인의 학습을 지역사회 활동과 연결한다.", "older workers": "고령 근로자는 훈련 참여가 더 낮다.", "aging society": "한국은 고령사회가 되었다.", "artificial intelligence": "인공지능은 일의 성격을 바꾸고 있다.", "sample": "표본은 성인 412명으로 구성되었다.", "purposive sampling": "연구참여자는 의도적 표집으로 선정하였다.", "snowball sampling": "접근하기 어려운 집단을 모집하기 위해 눈덩이 표집을 사용하였다.", "convenience sampling": "편의 표집은 일반화 가능성을 제한한다.", "questionnaire": "질문지는 45개 문항으로 구성되었다.", "scale": "이 척도는 높은 신뢰도를 보였다.", "reliability": "신뢰도는 크론바흐 알파로 검증하였다.", "validity": "구인타당도는 요인분석으로 검토하였다.", "Cronbach's alpha": "크론바흐 알파는 .89였다.", "factor analysis": "확인적 요인분석 결과 모형이 지지되었다.", "descriptive statistics": "먼저 기술통계를 산출하였다.", "t-test": "두 집단을 비교하기 위해 독립표본 t검정을 실시하였다.", "ANOVA": "분산분석 결과 연령집단에 따른 차이가 나타났다.", "correlation": "동기와 만족 간에 정적 상관이 있었다.", "independent variable": "연령을 독립변인으로 투입하였다.", "dependent variable": "참여 여부가 종속변인이었다.", "predictor": "학력이 참여의 가장 강력한 예측변인이었다.", "logistic regression": "로지스틱 회귀분석을 실시하였다.", "multilevel analysis": "다층분석으로 기업에 속한 근로자 자료의 위계 구조를 반영하였다.", "nested within": "근로자들은 각 기업에 위계적으로 속해 있었다.", "longitudinal": "종단적 설계는 시간에 따른 변화를 보여줄 수 있다.", "cross-sectional": "횡단적 설계는 인과적 추론을 제한한다.", "panel data": "본 연구는 한국직업능력연구원(KRIVET)의 패널자료를 사용하였다.", "Korean Adult Lifelong Learning Survey": "자료는 한국 성인 평생학습 실태조사에서 가져왔다.", "content analysis": "정책 문서에 내용분석을 적용하였다.", "thematic analysis": "주제분석으로 네 가지 주제를 도출하였다.", "Delphi method": "3차에 걸친 델파이 조사를 실시하였다.", "action research": "실행연구는 실천가가 자신의 실천을 개선해 가는 과정을 포함한다.", "literature review": "먼저 문헌연구를 수행하였다.", "meta-analysis": "본 메타분석은 64편의 연구를 종합하였다.", "effect size": "성인학습자에게서 효과크기가 더 크게 나타났다.", "random-effects model": "무선효과모형을 사용하였다.", "moderator analysis": "조절변인 분석으로 연구 간 이질성을 설명하였다.", "empirical studies": "이 리뷰는 실증연구만 포함하였다.", "triangulation": "삼각검증은 연구 결과의 신빙성을 높였다.", "member checking": "해석을 확인하기 위해 연구참여자 확인 절차를 거쳤다.", "trustworthiness": "동료 검토를 통해 신뢰성을 확보하였다.", "informed consent": "모든 연구참여자가 사전동의를 하였다.", "participant observation": "18개월 동안 참여관찰을 실시하였다.", "hermeneutic phenomenology": "해석학적 현상학의 접근을 채택하였다.", "pre-test and post-test": "사전·사후 검사 점수를 비교하였다.", "competency model": "델파이 조사를 통해 역량모델을 개발하였다.", "expert panel": "전문가 패널은 전문가 20명으로 구성되었다.", "consensus": "최종 문항은 합의를 통해 확정되었다.", "control variables": "성별과 연령을 통제변인으로 사용하였다.", "educational attainment": "학력은 참여를 예측하였다.", "identify": "본 연구는 핵심 요인을 도출한다.", "analyze": "본 연구는 정책 문서를 분석한다.", "conducted": "연구참여자 10명을 대상으로 면담을 실시하였다.", "were collected": "자료는 설문조사를 통해 수집되었다.", "employed / adopted": "혼합연구 설계를 채택하였다.", "administered": "설문은 온라인으로 실시하였다.", "indicate": "연구 결과는 ~임을 나타낸다.", "reveal": "분석 결과 세 가지 요인이 드러났다.", "contribute to": "학습은 안녕감에 기여한다.", "with respect to": "연령에 관하여 차이가 나타났다.", "in terms of": "집단 간에 동기 측면에서 차이가 있었다.", "on the other hand": "반면에 ~에서는 차이가 나타나지 않았다.", "not only A but also B": "~는 참여를 높였을 뿐 아니라 ~도", "serve as": "학습동아리는 가교 역할을 할 수 있다.", "shed light on": "본 연구는 성인학습자의 경험을 조명한다.", "limitations": "연구의 한계를 논의하였다.", "future research": "후속연구를 위한 시사점을 논의하였다.", "discuss": "본 연구는 정책적 시사점을 논의한다.", "propose": "본 연구는 유연한 일정 운영을 제안한다.", "relationship between": "동기와 만족 간의 관계를 검증하였다.", "as follows": "연구 결과는 다음과 같다.", "despite": "불안정한 여건에도 불구하고 ~", "nevertheless": "그럼에도 불구하고 어려움은 남아 있었다.", "argue": "본 연구는 정책이 바뀌어야 한다고 주장한다.", "synthesize": "본 메타분석은 64편의 연구를 종합하였다.", "yield": "성인 대상 연구가 더 큰 효과를 보였다.", "emerged": "분석 결과 네 가지 주제가 도출되었다.", "notably": "주목할 점은 두 집단 모두 ~라고 보고했다는 것이다.", "direct effect": "자기효능감은 만족에 직접적인 영향을 미쳤다.", "indirect effect": "사회적 실재감은 몰입을 통해 간접적인 영향을 미쳤다.", "parenthood": "부모됨은 성인기의 중요한 전환이다.", "transition to parenthood": "부모로의 전환은 부부관계를 재구성한다.", "parental identity": "부모정체성은 아이가 태어나기 전부터 형성되기 시작한다.", "prospective parents": "예비부모들은 먼저 자기 자신을 이해할 필요가 있다고 말했다.", "newlywed couples": "신혼부부들은 자신들의 가족가치에 대해 이야기를 나누었다.", "family of origin": "연구참여자들은 자신의 원가족 경험을 성찰하였다.", "marital relationship": "부모가 되는 것은 흔히 부부관계를 변화시킨다.", "family values": "부부는 대화를 통해 가족가치를 조율하였다.", "parent education": "부모교육은 양육기술에 초점을 맞추어 왔다.", "child-rearing": "양육기술만으로는 충분하지 않다.", "learning needs": "본 연구는 예비부모의 학습요구를 탐색하였다.", "life transition": "전공선택은 하나의 생애전환으로 볼 수 있다.", "undeclared students": "무전공 학생들은 1학년 동안 전공을 탐색한다.", "liberal studies": "자유전공 입학은 학생에게 더 많은 선택권을 준다.", "major exploration": "대학들은 전공탐색 프로그램을 운영한다.", "choosing a major": "전공선택은 하나의 학습과정이었다.", "career identity": "진로정체성은 탐색을 통해 발달한다.", "self-understanding": "자기이해는 핵심적인 학습성과이다.", "career decision-making self-efficacy": "진로결정 자기효능감은 전공만족을 예측하였다.", "college adjustment": "대학적응은 신입생에게 중요한 과제이다.", "first-year students": "신입생들은 성찰일지를 작성하였다.", "general education": "교양교육 과목은 학생의 생애설계를 지원한다.", "extracurricular programs": "비교과 프로그램은 정규 교과를 보완한다.", "life design": "생애설계 교육은 학생이 자신의 삶을 계획하도록 돕는다.", "career planning": "이 과목은 진로설계와 자기개발을 다루었다.", "reflective journals": "자료는 성찰일지를 통해 수집하였다.", "narrative reflection": "서사적 성찰은 학생들이 자신의 경험을 재해석하도록 도왔다.", "self-authorship": "자기저작은 자신의 신념과 정체성을 스스로 정의하는 능력이다.", "career construction theory": "진로구성이론은 진로를 사람들이 만들어 가는 이야기로 본다.", "transition theory": "슐로스버그의 전환이론은 상황, 자아, 지원, 전략의 4S를 강조한다.", "emerging adulthood": "성인진입기는 정체성을 탐색하는 시기이다.", "identity formation": "정체성 형성은 성인기 내내 계속된다.", "decision-making": "학생들의 의사결정은 주변 사람들의 영향을 받았다.", "program development": "연구 결과는 프로그램 개발의 근거를 제공한다.", "expert validity": "프로그램은 전문가 타당도 검토를 거쳤다.", "pilot program": "부부 10쌍을 대상으로 파일럿 프로그램을 운영하였다."};
-const CATS = ["기본 개념","이론","정책·현장","연구방법","초록 표현","내 연구"];
+const EXKO = {"lifelong education": "평생교육은 전 생애에 걸친 학습을 지원한다.", "lifelong learning": "평생학습은 고령화 사회에서 핵심 정책 의제가 되었다.", "adult education": "성인교육은 역사적으로 사회운동과 연결되어 왔다.", "continuing education": "대학들은 직장인을 위한 계속교육을 확대하였다.", "andragogy": "놀스(Knowles)는 앤드라고지를 성인의 학습을 돕는 기술이자 과학으로 정의하였다.", "pedagogy": "앤드라고지는 흔히 페다고지와 대비된다.", "adult learners": "성인학습자는 풍부한 삶의 경험을 교실에 가져온다.", "older adults": "지역사회 학습 프로그램에 참여하는 노인이 늘고 있다.", "middle-aged workers": "중장년 근로자는 기술을 새로 익혀야 한다는 압박을 받는다.", "non-traditional students": "비전통적 학생은 일, 가정, 학업을 병행하는 경우가 많다.", "formal education": "많은 학습자가 형식 학교교육에서 배제되어 왔다.", "non-formal learning": "비형식학습은 학교 밖의 조직된 프로그램에서 이루어진다.", "informal learning": "무형식학습은 일상 경험을 통해 자연스럽게 일어난다.", "learning society": "학습사회를 만들려면 모든 시민에게 기회가 주어져야 한다.", "learning community": "학습공동체는 구성원 간의 상호 지지를 길러 준다.", "life course": "학습 요구는 생애과정에 따라 달라진다.", "learner-centered": "이 프로그램은 학습자 중심 접근을 채택하였다.", "learning outcomes": "본 연구는 12주 후의 학습성과를 측정하였다.", "self-directed learning": "자기주도학습은 성인교육의 핵심 개념이다.", "transformative learning": "메지로우의 전환학습 이론은 관점의 변화를 강조한다.", "perspective transformation": "관점 전환은 흔히 혼란스러운 딜레마에서 시작된다.", "experiential learning": "콜브의 경험학습 순환은 네 단계로 이루어진다.", "critical reflection": "비판적 성찰은 학습자가 자신의 가정을 의심해 보도록 돕는다.", "reflective practice": "성찰적 실천은 전문성 성장에 필수적이다.", "communities of practice": "레이브와 웽거는 실천공동체 개념을 제시하였다.", "situated learning": "상황학습은 학습을 사회적 실천에의 참여로 본다.", "learning motivation": "학습동기는 프로그램 이수를 예측하였다.", "learning agility": "학습민첩성은 경험으로부터 빠르게 배우는 능력을 말한다.", "career adaptability": "경력적응력은 근로자가 경력전환에 대처하도록 돕는다.", "empowerment": "문해교육은 임파워먼트의 과정이 될 수 있다.", "social capital": "학습 참여는 사회적 자본을 쌓을 수 있다.", "professional identity": "평생교육사는 시간에 걸쳐 전문직 정체성을 구성해 간다.", "sense of belonging": "함께 배우는 과정은 강한 소속감을 만들어 냈다.", "conscientization": "프레이리의 의식화는 학습을 사회 변화와 연결한다.", "learning persistence": "사회적 지원은 학습지속을 높였다.", "barriers to participation": "크로스(Cross)는 참여 장애요인을 세 가지 유형으로 분류하였다.", "situational barriers": "시간 부족은 대표적인 상황적 장애요인이다.", "institutional barriers": "경직된 시간표는 기관적 장애요인이다.", "dispositional barriers": "낮은 자신감은 성향적 장애요인이다.", "lifelong educator": "평생교육사는 지역사회 프로그램을 기획하고 운영한다.", "Lifelong Learning City": "190개가 넘는 지방자치단체가 평생학습도시로 지정되었다.", "local governments": "지방자치단체는 평생교육 정책에서 중심적인 역할을 한다.", "adult literacy education": "성인문해교육은 학교교육을 받지 못한 사람들을 위한 것이다.", "literacy": "문해는 읽고 쓰는 능력 그 이상이다.", "digital literacy": "노인 대상 디지털 리터러시 프로그램이 확대되고 있다.", "digital divide": "디지털 격차는 사회적 불평등을 심화시킨다.", "digital transformation": "디지털 전환은 성인이 배우는 방식을 바꾸어 놓았다.", "credit bank system": "학점은행제는 성인이 유연하게 학위를 취득할 수 있게 한다.", "reskilling": "리스킬링 프로그램은 근로자가 새로운 직무로 옮겨 가도록 돕는다.", "upskilling": "기술 변화에 발맞추려면 업스킬링이 필요하다.", "civic engagement": "학습 프로그램은 지역사회의 시민참여를 촉진하였다.", "marginalized groups": "정책은 소외계층에게 먼저 닿아야 한다.", "vulnerable groups": "취약계층은 학습에 여러 장애요인을 겪는다.", "community-based": "지역사회 기반 프로그램은 주민의 일상과 가깝다.", "faith-based": "신앙 기반 단체는 다양한 성인학습 프로그램을 제공한다.", "religious institutions": "종교기관은 오랫동안 성인학습의 장으로 기능해 왔다.", "professional development": "교육자에게는 지속적인 전문성 개발이 요구된다.", "performance indicators": "단기 성과지표는 프로그램의 목표를 왜곡할 수 있다.", "sustainability": "사업의 지속가능성은 주민 참여에 달려 있다.", "policy recommendations": "본 연구는 정책적 제언으로 마무리된다.", "career transition": "중년기의 경력전환에는 새로운 학습이 필요한 경우가 많다.", "later-life learning": "노년기 학습은 안녕감에 기여한다.", "social support": "가족의 사회적 지원은 학습자가 학습을 이어 가도록 격려하였다.", "life satisfaction": "참여는 삶의 만족도와 정적인 관련이 있었다.", "qualitative research": "본 질적 연구는 학습자의 경험을 탐색하였다.", "quantitative research": "가설 검증을 위해 양적 연구 설계를 사용하였다.", "mixed methods": "혼합연구 설계로 설문과 면담을 결합하였다.", "in-depth interviews": "8명의 연구참여자를 대상으로 심층면담을 실시하였다.", "focus group interviews": "프로그램 담당자들과 포커스그룹 인터뷰를 진행하였다.", "phenomenological approach": "자료는 현상학적 접근으로 분석하였다.", "grounded theory": "근거이론은 자료로부터 이론을 구축하는 것을 목표로 한다.", "narrative inquiry": "내러티브 탐구는 연구참여자의 생애 이야기에 초점을 둔다.", "axial coding": "개방코딩, 축코딩, 선택코딩을 활용하였다.", "selective coding": "핵심범주는 선택코딩을 통해 도출되었다.", "core category": "핵심범주는 '균형 찾기'로 확인되었다.", "survey": "412명의 근로자로부터 설문 자료를 수집하였다.", "structural equation modeling": "모형 검증에는 구조방정식모형을 사용하였다.", "mediating effect": "학습민첩성은 그 관계를 부분 매개하였다.", "moderating effect": "사회적 지원은 장애요인의 영향을 조절하였다.", "quasi-experimental design": "준실험설계를 적용하였다.", "experimental group": "실험집단은 10주 동안 프로그램에 참여하였다.", "control group": "통제집단은 처치를 받지 않았다.", "participants": "연구참여자는 지역 복지관을 통해 모집하였다.", "significant": "그 차이는 통계적으로 유의하였다.", "hypothesized model": "연구모형은 양호한 적합도를 보였다.", "case study": "세 학습도시에 대한 사례연구를 수행하였다.", "regression analysis": "위계적 회귀분석을 실시하였다.", "the purpose of this study": "본 연구의 목적은 ~를 탐색하는 것이다.", "aim to": "본 연구는 ~를 규명하는 것을 목적으로 한다.", "to this end": "이를 위해 설문 자료를 수집하였다.", "drawing on": "면담 자료를 바탕으로, 본 연구는 ~를 도출한다.", "the findings revealed": "연구 결과, 학습자들은 ~한 것으로 나타났다.", "positive effect": "~는 ~에 유의한 정적 영향을 미쳤다.", "negative effect": "~는 ~에 가장 강한 부적 영향을 미쳤다.", "implications": "본 연구는 실천을 위한 시사점을 제공한다.", "suggest": "이러한 결과는 ~임을 시사한다.", "call for": "이러한 결과는 유연한 제도의 필요성을 제기한다.", "highlight": "이러한 결과는 ~의 가능성을 보여준다.", "explore": "본 연구는 학습의 의미를 탐색한다.", "examine": "본 연구는 ~ 간의 관계를 규명하였다.", "investigate": "본 연구는 ~의 장애요인을 조사하였다.", "whereas": "~는 향상되었으나, ~에서는 차이가 나타나지 않았다.", "adult learning": "성인학습은 여러 면에서 아동의 학습과 다르다.", "learning participation": "학습참여율은 학력에 따라 다르게 나타난다.", "older adult education": "고령사회에서 노인교육이 확대되었다.", "intergenerational learning": "세대 간 학습은 노인과 젊은 세대를 함께 모은다.", "workplace learning": "일터학습에는 공식 훈련과 무형식학습이 모두 포함된다.", "human resource development": "인적자원개발은 성인교육과 밀접하게 관련되어 있다.", "vocational education and training": "직업교육훈련은 성인이 취업을 준비하도록 돕는다.", "recognition of prior learning": "선행학습인정은 성인이 이미 알고 있는 것을 인정해 준다.", "lifelong learning institutions": "평생교육기관에는 평생학습관, 대학, 비영리단체 등이 있다.", "learning opportunities": "정책은 모두를 위한 학습기회 확대를 목표로 한다.", "educational equity": "교육형평성은 평생교육의 핵심 가치이다.", "social inclusion": "평생학습은 사회적 포용을 촉진할 수 있다.", "active aging": "활기찬 노화는 노년기의 참여와 건강을 강조한다.", "well-being": "학습은 노인의 안녕감에 기여한다.", "quality of life": "참여는 학습자의 삶의 질을 높였다.", "midlife": "중년기는 흔히 경력을 되돌아보는 시기이다.", "later life": "노년기의 학습은 사회적 연결을 돕는다.", "learning culture": "지원적인 학습문화는 참여를 독려한다.", "learning organization": "센게(Senge)는 학습조직이라는 개념을 널리 알렸다.", "knowledge society": "지식사회에서 학습은 끝나지 않는다.", "MOOCs": "MOOC는 대학 강좌를 대중에게 열어 주었다.", "online learning": "팬데믹 기간 동안 온라인 학습이 빠르게 늘어났다.", "blended learning": "블렌디드 러닝은 온라인 수업과 대면 수업을 결합한다.", "micro-credentials": "마이크로 크리덴셜은 짧은 학습 경험을 인증한다.", "readiness to learn": "놀스는 성인의 학습준비도가 삶의 과업과 연결되어 있다고 주장하였다.", "self-directed learning readiness": "자기주도학습 준비도는 구글리엘미노(Guglielmino)의 척도로 측정하였다.", "self-efficacy": "자기효능감은 학습만족에 직접적인 영향을 미쳤다.", "intrinsic motivation": "내재적 동기는 배움 그 자체를 위한 학습을 이끈다.", "extrinsic motivation": "외재적 동기는 자격증과 같은 보상에서 비롯된다.", "goal-oriented learners": "훌(Houle)은 학습자를 목표지향형, 활동지향형, 학습지향형으로 분류하였다.", "disorienting dilemma": "혼란스러운 딜레마는 전환학습을 촉발할 수 있다.", "meaning perspective": "전환학습은 개인의 의미관점을 변화시킨다.", "critical pedagogy": "비판교육학은 교육을 사회정의와 연결한다.", "banking education": "프레이리는 학습자를 빈 그릇처럼 취급하는 은행저금식 교육을 비판하였다.", "popular education": "민중교육은 라틴아메리카의 사회운동 속에서 발전하였다.", "lifespan development": "전생애 발달 관점은 성장이 노년기까지 계속된다고 본다.", "learning transfer": "일터로의 학습전이는 제한적인 경우가 많다.", "tacit knowledge": "암묵지는 말로 표현하기 어렵다.", "reflection-in-action": "쇤(Schön)은 전문적 실천에서의 행위 중 성찰을 설명하였다.", "key competencies": "OECD는 평생학습을 위한 핵심역량을 제시하였다.", "competency": "각 역량은 행동지표로 정의되었다.", "learning flow": "학습몰입은 사회적 실재감의 효과를 매개하였다.", "resilience": "학습경험은 노인의 회복탄력성을 높였다.", "agency": "성인학습자는 자신의 학습을 만들어 가는 데 행위주체성을 발휘한다.", "cultural capital": "문화자본은 누가 학습에 참여하는지에 영향을 미친다.", "generativity": "에릭슨은 생산성을 다음 세대에 대한 관심으로 설명하였다.", "social presence": "사회적 실재감은 온라인에서 다른 사람과 함께 있다는 느낌이다.", "learning satisfaction": "학습만족은 강좌가 끝난 후 측정하였다.", "engagement": "학습자의 학습참여는 강좌 이수를 예측한다.", "Lifelong Education Act": "평생교육법은 1999년에 제정되었다.", "National Institute for Lifelong Education": "국가평생교육진흥원은 정책 시행을 지원한다.", "lifelong learning voucher": "평생교육이용권은 저소득 성인을 지원한다.", "lifelong learning account": "평생학습계좌제는 개인의 학습 이력을 기록한다.", "university lifelong education": "대학 평생교육은 학위과정의 성인학습자를 지원한다.", "part-time students": "시간제 학생은 전일제로 일하는 경우가 많다.", "program planning": "프로그램 기획은 요구분석에서 시작된다.", "needs assessment": "지역 주민을 대상으로 요구분석을 실시하였다.", "program evaluation": "프로그램 평가는 커크패트릭의 4수준 모형을 활용하였다.", "volunteering": "자원봉사는 새로운 학습의 장이 되었다.", "community education": "지역사회교육은 지역의 요구에 대응한다.", "residents": "주민들은 프로그램 기획에 참여하였다.", "civic education": "시민교육은 민주적 시민성을 기른다.", "citizenship": "학습공동체는 능동적 시민성을 키운다.", "multicultural families": "다문화가족 대상 프로그램이 확대되었다.", "marriage migrant women": "결혼이주여성들은 한국어 수업에 참여하였다.", "multicultural education": "다문화교육은 동화주의를 넘어서야 한다.", "assimilation": "동화 지향 프로그램은 이주민의 문화를 외면한다.", "North Korean defectors": "평생교육은 북한이탈주민의 정착을 지원한다.", "adults with disabilities": "장애 성인은 학습에 여러 장애요인을 겪는다.", "career-break women": "경력단절여성은 훈련을 통해 재취업을 모색한다.", "reemployment": "재취업 교육은 일터로 돌아가려는 여성을 지원한다.", "retirement": "은퇴는 노년기의 중요한 전환이다.", "baby boomers": "베이비붐 세대가 은퇴기에 접어들고 있다.", "low-income": "저소득 성인은 학습 참여가 더 낮다.", "educational welfare": "평생교육은 교육복지의 일부이다.", "learning clubs": "학습동아리는 개인의 학습을 지역사회 활동과 연결한다.", "older workers": "고령 근로자는 훈련 참여가 더 낮다.", "aging society": "한국은 고령사회가 되었다.", "artificial intelligence": "인공지능은 일의 성격을 바꾸고 있다.", "sample": "표본은 성인 412명으로 구성되었다.", "purposive sampling": "연구참여자는 의도적 표집으로 선정하였다.", "snowball sampling": "접근하기 어려운 집단을 모집하기 위해 눈덩이 표집을 사용하였다.", "convenience sampling": "편의 표집은 일반화 가능성을 제한한다.", "questionnaire": "질문지는 45개 문항으로 구성되었다.", "scale": "이 척도는 높은 신뢰도를 보였다.", "reliability": "신뢰도는 크론바흐 알파로 검증하였다.", "validity": "구인타당도는 요인분석으로 검토하였다.", "Cronbach's alpha": "크론바흐 알파는 .89였다.", "factor analysis": "확인적 요인분석 결과 모형이 지지되었다.", "descriptive statistics": "먼저 기술통계를 산출하였다.", "t-test": "두 집단을 비교하기 위해 독립표본 t검정을 실시하였다.", "ANOVA": "분산분석 결과 연령집단에 따른 차이가 나타났다.", "correlation": "동기와 만족 간에 정적 상관이 있었다.", "independent variable": "연령을 독립변인으로 투입하였다.", "dependent variable": "참여 여부가 종속변인이었다.", "predictor": "학력이 참여의 가장 강력한 예측변인이었다.", "logistic regression": "로지스틱 회귀분석을 실시하였다.", "multilevel analysis": "다층분석으로 기업에 속한 근로자 자료의 위계 구조를 반영하였다.", "nested within": "근로자들은 각 기업에 위계적으로 속해 있었다.", "longitudinal": "종단적 설계는 시간에 따른 변화를 보여줄 수 있다.", "cross-sectional": "횡단적 설계는 인과적 추론을 제한한다.", "panel data": "본 연구는 한국직업능력연구원(KRIVET)의 패널자료를 사용하였다.", "Korean Adult Lifelong Learning Survey": "자료는 한국 성인 평생학습 실태조사에서 가져왔다.", "content analysis": "정책 문서에 내용분석을 적용하였다.", "thematic analysis": "주제분석으로 네 가지 주제를 도출하였다.", "Delphi method": "3차에 걸친 델파이 조사를 실시하였다.", "action research": "실행연구는 실천가가 자신의 실천을 개선해 가는 과정을 포함한다.", "literature review": "먼저 문헌연구를 수행하였다.", "meta-analysis": "본 메타분석은 64편의 연구를 종합하였다.", "effect size": "성인학습자에게서 효과크기가 더 크게 나타났다.", "random-effects model": "무선효과모형을 사용하였다.", "moderator analysis": "조절변인 분석으로 연구 간 이질성을 설명하였다.", "empirical studies": "이 리뷰는 실증연구만 포함하였다.", "triangulation": "삼각검증은 연구 결과의 신빙성을 높였다.", "member checking": "해석을 확인하기 위해 연구참여자 확인 절차를 거쳤다.", "trustworthiness": "동료 검토를 통해 신뢰성을 확보하였다.", "informed consent": "모든 연구참여자가 사전동의를 하였다.", "participant observation": "18개월 동안 참여관찰을 실시하였다.", "hermeneutic phenomenology": "해석학적 현상학의 접근을 채택하였다.", "pre-test and post-test": "사전·사후 검사 점수를 비교하였다.", "competency model": "델파이 조사를 통해 역량모델을 개발하였다.", "expert panel": "전문가 패널은 전문가 20명으로 구성되었다.", "consensus": "최종 문항은 합의를 통해 확정되었다.", "control variables": "성별과 연령을 통제변인으로 사용하였다.", "educational attainment": "학력은 참여를 예측하였다.", "identify": "본 연구는 핵심 요인을 도출한다.", "analyze": "본 연구는 정책 문서를 분석한다.", "conducted": "연구참여자 10명을 대상으로 면담을 실시하였다.", "were collected": "자료는 설문조사를 통해 수집되었다.", "employed / adopted": "혼합연구 설계를 채택하였다.", "administered": "설문은 온라인으로 실시하였다.", "indicate": "연구 결과는 ~임을 나타낸다.", "reveal": "분석 결과 세 가지 요인이 드러났다.", "contribute to": "학습은 안녕감에 기여한다.", "with respect to": "연령에 관하여 차이가 나타났다.", "in terms of": "집단 간에 동기 측면에서 차이가 있었다.", "on the other hand": "반면에 ~에서는 차이가 나타나지 않았다.", "not only A but also B": "~는 참여를 높였을 뿐 아니라 ~도", "serve as": "학습동아리는 가교 역할을 할 수 있다.", "shed light on": "본 연구는 성인학습자의 경험을 조명한다.", "limitations": "연구의 한계를 논의하였다.", "future research": "후속연구를 위한 시사점을 논의하였다.", "discuss": "본 연구는 정책적 시사점을 논의한다.", "propose": "본 연구는 유연한 일정 운영을 제안한다.", "relationship between": "동기와 만족 간의 관계를 검증하였다.", "as follows": "연구 결과는 다음과 같다.", "despite": "불안정한 여건에도 불구하고 ~", "nevertheless": "그럼에도 불구하고 어려움은 남아 있었다.", "argue": "본 연구는 정책이 바뀌어야 한다고 주장한다.", "synthesize": "본 메타분석은 64편의 연구를 종합하였다.", "yield": "성인 대상 연구가 더 큰 효과를 보였다.", "emerged": "분석 결과 네 가지 주제가 도출되었다.", "notably": "주목할 점은 두 집단 모두 ~라고 보고했다는 것이다.", "direct effect": "자기효능감은 만족에 직접적인 영향을 미쳤다.", "indirect effect": "사회적 실재감은 몰입을 통해 간접적인 영향을 미쳤다."};
+const CATS = ["기본 개념","이론","정책·현장","연구방법","초록 표현","내 연구"].filter(c => TERMS_RAW.some(t => t[2] === c));
 const reEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
 const T = TERMS_RAW.map(([en,ko,cat,ex,re]) => {
   const src = re || reEsc(en);
@@ -659,92 +674,13 @@ const PASSAGES = [
  ["At the individual level, learning motivation and perceived career prospects were positively associated with participation, whereas age showed a negative association.","개인 수준에서는 학습동기와 지각된 경력 전망이 참여와 정적인 관련을 보인 반면, 연령은 부적인 관련을 보였다."],
  ["At the organizational level, a supportive learning culture not only increased participation directly but also weakened the negative effect of age.","조직 수준에서는 지원적인 학습문화가 참여를 직접 높였을 뿐 아니라 연령의 부정적 영향도 완화하였다."],
  ["These results indicate that reskilling policies should target organizational learning environments as well as individual motivation, particularly for older workers.","이러한 결과는 재교육 정책이 특히 고령 근로자를 위해 개인의 동기뿐 아니라 조직의 학습환경까지 겨냥해야 함을 보여준다."]]},
-{id:"m1",rid:"r1",level:"중급",topic:"내 연구안 1 · 부모됨 이전 단계",title:"예비부모와 신혼부부의 학습요구와 부모정체성 형성 (가상 연습 지문)",
- s:[["Becoming a parent is a major life transition that reshapes one's identity, marital relationship, and values about family.","부모가 되는 것은 개인의 정체성, 부부관계, 가족에 대한 가치관을 재구성하는 중요한 생애전환이다."],
- ["However, existing parent education has focused largely on pregnancy, childbirth, and child-rearing skills, paying little attention to the learning of adults before parenthood.","그러나 기존의 부모교육은 주로 임신, 출산, 양육기술에 초점을 맞추어 왔으며, 부모가 되기 이전 성인의 학습에는 거의 주목하지 않았다."],
- ["This study explored the learning needs of prospective parents and newlywed couples and examined how parental identity is formed from the perspective of adult learning.","본 연구는 예비부모와 신혼부부의 학습요구를 탐색하고, 성인학습의 관점에서 부모정체성이 어떻게 형성되는지 살펴보았다."],
- ["In-depth interviews with fourteen participants revealed that reflecting on their family-of-origin experiences and conflict styles was a central part of preparing for parenthood.","연구참여자 14명과의 심층면담 결과, 원가족 경험과 갈등방식을 성찰하는 것이 부모됨 준비의 핵심적인 부분인 것으로 나타났다."],
- ["Couples also negotiated their views on family values and parental roles through ongoing dialogue.","또한 부부는 지속적인 대화를 통해 가족가치와 부모역할에 대한 관점을 조율해 나갔다."],
- ["The findings suggest that parent education should be reconceptualized as a process of adult growth and learning rather than a set of child-rearing techniques.","이러한 결과는 부모교육이 양육기술의 집합이 아니라 성인의 성장과 학습의 과정으로 재개념화되어야 함을 시사한다."]]},
-{id:"m2",rid:"r2",level:"중급",topic:"내 연구안 2 · 무전공·자유전공",title:"무전공 대학생의 전공선택 과정과 진로정체성 (가상 연습 지문)",
- s:[["As Korean universities expand undeclared and liberal studies admissions, students are increasingly required to explore and choose their majors after enrollment.","한국 대학이 무전공·자유전공 입학을 확대함에 따라, 학생들은 입학 이후 스스로 전공을 탐색하고 선택해야 하는 경우가 늘고 있다."],
- ["This study examined how undeclared students explore and decide on their majors, focusing on self-understanding and career identity.","본 연구는 무전공 학생들이 전공을 어떻게 탐색하고 결정하는지를 자기이해와 진로정체성을 중심으로 살펴보았다."],
- ["A qualitative study was conducted through in-depth interviews with ten undeclared students in their first and second years.","1, 2학년 무전공 학생 10명을 대상으로 심층면담을 실시하는 질적 연구를 수행하였다."],
- ["The findings revealed that choosing a major was not a single decision but a learning process in which students questioned their interests, gathered information, and reinterpreted their experiences.","연구 결과, 전공선택은 단 한 번의 결정이 아니라 학생들이 자신의 흥미를 묻고, 정보를 수집하며, 자신의 경험을 재해석하는 학습과정인 것으로 나타났다."],
- ["Professors, senior students, and parents, as well as institutional information, played distinct roles in this process.","이 과정에서 교수, 선배, 부모와 대학의 제도적 정보는 각기 다른 역할을 하였다."],
- ["The study provides implications for designing major exploration and career development programs in universities.","본 연구는 대학의 전공탐색 및 진로개발 프로그램 설계에 대한 시사점을 제공한다."]]},
-{id:"m3",rid:"r3",level:"도전",topic:"내 연구안 3 · 대학생 자기이해",title:"대학 신입생의 자기이해 학습경험과 진로정체성 (가상 연습 지문)",
- s:[["While many universities offer liberal arts courses on college life and career planning, little is known about how self-understanding is actually formed through such education.","많은 대학이 대학생활과 진로설계에 관한 교양과목을 운영하고 있지만, 이러한 교육을 통해 자기이해가 실제로 어떻게 형성되는지에 대해서는 알려진 바가 많지 않다."],
- ["Viewing self-understanding not as the result of a psychological test but as a learning process of interpreting one's experiences, this study explored how first-year students construct their career identity.","본 연구는 자기이해를 심리검사의 결과가 아니라 자신의 경험을 해석하는 학습과정으로 보고, 대학 신입생이 진로정체성을 어떻게 구성해 가는지 탐색하였다."],
- ["Data were collected from interviews and reflective journals of twelve students enrolled in a career and life design course.","진로·생애설계 교과목을 수강한 학생 12명의 면담과 성찰일지를 통해 자료를 수집하였다."],
- ["Students' self-understanding shifted from describing themselves through external labels, such as test results and grades, to articulating their own values and meanings.","학생들의 자기이해는 검사 결과나 성적과 같은 외부의 이름표로 자신을 설명하는 데에서 자신의 가치와 의미를 스스로 표현하는 방향으로 변화하였다."],
- ["Opportunities for narrative reflection and dialogue with peers were identified as key learning experiences that facilitated this shift.","서사적 성찰의 기회와 동료와의 대화는 이러한 변화를 촉진한 핵심 학습경험으로 확인되었다."],
- ["These findings highlight the need to redesign university general education from the perspective of lifelong learning and life design.","이러한 결과는 평생학습과 생애설계의 관점에서 대학 교양교육을 재설계할 필요성을 보여준다."]]},
 ];
 
-const COMMON_Q = ["생애의 중요한 전환과 선택을 앞둔 개인은 자신을 어떻게 이해하고, 경험을 어떻게 학습하며, 삶의 방향과 정체성을 어떻게 형성하는가?",
-  "How do individuals facing important life transitions and choices understand themselves, learn from their experiences, and shape the direction and identity of their lives?"];
-const RESEARCH = [
-{id:"r1",search:["예비부모교육","부모됨 성인학습","부모정체성","예비부부 교육프로그램","원가족 경험 부부관계"],short:"부모됨 이전",title:"부모됨 이전 단계 성인의 학습요구와 부모정체성 형성에 관한 연구",sub:"생애전환 및 성인학습의 관점을 중심으로",
- en:"A Study on the Learning Needs and Parental Identity Formation of Adults before Parenthood: From the Perspectives of Life Transition and Adult Learning",
- target:"예비부모·신혼부부 / 가족형성",
- purpose:"부모됨을 준비하는 성인이 필요로 하는 학습내용을 탐색하고, 부모정체성이 형성되는 과정을 성인학습과 생애전환의 관점에서 설명한다. 장기적으로는 자기이해-원가족-부부관계-부모됨-가족가치를 잇는 예비부모 교육프로그램 개발로 확장한다.",
- rq:[["예비부모 및 초기 부모는 부모가 되기 전에 무엇을 배우고 준비할 필요가 있다고 인식하는가?","What do prospective and new parents perceive they need to learn and prepare before becoming parents?"],
-  ["부모됨을 준비하는 과정에서 자기이해와 원가족 경험의 성찰은 어떠한 의미를 갖는가?","What does reflecting on self-understanding and family-of-origin experiences mean in preparing for parenthood?"],
-  ["부부는 부모됨을 앞두고 가족가치와 부모역할에 대한 관점을 어떻게 조정하고 형성하는가?","How do couples negotiate and form their views on family values and parental roles before parenthood?"],
-  ["이러한 학습경험은 부모정체성 형성과 어떠한 관련을 갖는가?","How are these learning experiences related to the formation of parental identity?"]],
- method:"선행연구 검토 → 예비부모·초기 부모 심층면담 → 프로그램 구성요소 도출 → 전문가 타당도 검토 → 파일럿 프로그램",
- kw:[["성인학습","adult learning"],["생애전환","life transition"],["부모됨","parenthood"],["부모정체성","parental identity"],["자기이해","self-understanding"],["부부관계","marital relationship"],["가족교육","family education"]],
- theory:[["Transformative learning (Mezirow)","전환학습. 원가족 경험과 당연하게 여기던 가정을 비판적으로 성찰하면서 관점이 바뀌는 과정을 설명하는 틀로 쓸 수 있어요."],
-  ["Transition theory (Schlossberg)","전환이론. 상황, 자아, 지원, 전략(4S)으로 생애전환에 대처하는 방식을 설명해요."],
-  ["Transition to parenthood","부모로의 전환 연구. 부모가 되는 시기의 부부관계 변화를 다룬 가족학·가족심리학 연구 흐름이에요. Cowan & Cowan의 연구가 대표적이에요."],
-  ["Learning needs analysis","학습요구 분석. 평생교육 프로그램 개발의 출발점이라 연구 목적과 바로 이어져요."]],
- qs:[["왜 부모교육이 '평생교육학'의 연구 주제인가요?","양육기술 교육이 아니라 성인이 생애전환 속에서 자신을 성찰하고 배우는 과정, 즉 '성인학습'으로 본다는 관점을 강조하세요."],
-  ["참여자는 어떻게 선정할 건가요?","예비부모, 신혼부부, 초기 부모 중 누구를 중심에 둘지와 선정 기준(결혼 기간, 임신 여부 등)을 정해 두세요."],
-  ["기존 부모교육 연구와 무엇이 다른가요?","'부모가 되기 이전' 단계와 '부모정체성 형성'에 초점을 둔다는 차별점을 한 문장으로 말할 수 있게 준비하세요."]],
- topic:"예비부모와 신혼부부의 부모됨 준비, 원가족 성찰, 부모정체성 형성"},
-{id:"r2",search:["무전공","자유전공 전공선택","전공탐색 프로그램","진로정체성 대학생","전공선택 자기효능감"],short:"무전공·자유전공",title:"무전공·자유전공 대학생의 전공선택 과정에서 나타나는 학습경험에 관한 연구",sub:"자기이해와 진로정체성 형성을 중심으로",
- en:"A Study on the Learning Experiences of Undeclared Students in the Process of Choosing a Major: Focusing on Self-Understanding and Career Identity Formation",
- target:"대학생 / 전공 선택",
- purpose:"무전공·자유전공 대학생의 전공탐색과 선택 경험을 분석해 그 과정에서 나타나는 자기이해, 진로정체성 형성, 정보탐색, 주변인과 제도의 영향을 규명한다. 대학의 전공탐색·진로설계 교육과 학생지원 프로그램 개발의 근거를 마련한다.",
- rq:[["무전공·자유전공 학생은 입학 이후 전공을 어떻게 탐색하고 선택하는가?","How do undeclared students explore and choose their majors after enrollment?"],
-  ["전공선택 과정에서 학생의 자기이해와 진로정체성은 어떻게 변화하는가?","How do students' self-understanding and career identity change in the process of choosing a major?"],
-  ["교수·선배·친구·부모·대학의 제도 및 정보는 전공선택에 어떠한 영향을 미치는가?","How do professors, senior students, friends, parents, and university systems influence their choice of major?"],
-  ["학생들은 전공선택 과정에서 어떠한 교육적 지원을 필요로 하는가?","What kinds of educational support do students need in the process of choosing a major?"]],
- method:"정책·선행연구·전공탐색 프로그램 분석 → 무전공 학생 심층면담(질적 연구) → 후속: 전공선택 자기효능감·진로정체성·대학적응 양적 연구 또는 프로그램 개발·효과검증",
- kw:[["무전공","undeclared major"],["자유전공","liberal studies"],["전공선택","choosing a major"],["진로정체성","career identity"],["자기이해","self-understanding"],["대학생 학습","college student learning"],["진로교육","career education"]],
- theory:[["Career construction theory (Savickas)","진로구성이론. 진로를 개인이 자기 경험에 의미를 부여하며 만들어 가는 이야기로 봐요. 전공선택을 '학습과정'으로 보는 관점과 잘 맞아요."],
-  ["Identity status (Marcia)","정체성 지위 이론. 탐색과 전념의 두 축으로 정체성 상태(성취, 유예, 유실, 혼미)를 나눠요. 전공 탐색 과정을 분석하는 틀로 쓸 수 있어요."],
-  ["Career decision-making self-efficacy","진로결정 자기효능감. 후속 양적 연구의 핵심 변인 후보예요."],
-  ["Emerging adulthood (Arnett)","성인진입기. 대략 18~25세를 정체성 탐색이 활발한 시기로 보는 개념이에요. 대학생을 '성인학습자'로 다루는 근거가 될 수 있어요."]],
- qs:[["이 연구가 왜 평생교육학인가요? 고등교육이나 진로상담 연구와 뭐가 다른가요?","전공선택을 '학습'으로 보는 관점과, 대학생을 성인진입기 학습자로 본다는 점을 말하세요."],
-  ["무전공 제도에 대해 어떻게 생각하세요?","찬반보다는 제도가 학생에게 새로운 '학습과제'를 준다는 점에 초점을 맞추세요."],
-  ["연구안 3과 무엇이 다른가요?","연구안 2는 '전공선택'이라는 구체적 결정, 연구안 3은 '교육을 통한 자기이해'가 계기예요. 둘을 하나로 묶을 수도 있다고 답할 수 있어요."]],
- topic:"무전공·자유전공 대학생의 전공탐색과 전공선택, 자기이해, 진로정체성"},
-{id:"r3",search:["대학생 자기이해","진로정체성 형성","생애설계 교양교육","대학 신입생 진로교육","자기저작 대학생"],short:"대학생 자기이해",title:"대학생의 자기이해 학습경험과 진로정체성 형성에 관한 연구",sub:"대학 신입생의 진로·생애설계 교육을 중심으로",
- en:"A Study on College Students' Learning Experiences of Self-Understanding and Career Identity Formation: Focusing on Career and Life Design Education for First-Year Students",
- target:"대학 신입생 / 진로·생애설계",
- purpose:"대학 신입생이 자기이해 및 진로·생애설계 교육을 통해 자신에 대한 인식과 진로정체성을 어떻게 형성하는지 탐색하고, 대학 자기이해 교육의 교육적 의미와 구성요소를 규명한다. 교양교육·비교과 프로그램 개발과 효과성 연구로 확장한다.",
- rq:[["대학생은 대학 입학 전후 자신을 어떻게 이해하고 설명하는가?","How do college students understand and describe themselves before and after entering university?"],
-  ["자기이해를 촉진하는 주요 학습경험은 무엇인가?","What are the key learning experiences that facilitate self-understanding?"],
-  ["자기이해의 변화는 전공·진로 선택 및 진로정체성 형성과 어떻게 연결되는가?","How are changes in self-understanding connected to choosing a major or career and to forming career identity?"],
-  ["대학의 진로·생애설계 교육은 어떠한 내용과 방식으로 구성될 필요가 있는가?","What content and methods should university career and life design education include?"]],
- method:"선행연구 검토 → 신입생·교과/비교과 참여자 면담과 성찰자료 수집 → 후속: 프로그램 개발, 사전·사후 효과와 참여경험을 혼합방법으로 검증",
- kw:[["자기이해","self-understanding"],["진로정체성","career identity"],["생애설계","life design"],["대학 신입생","first-year students"],["교양교육","general education"],["진로학습","career learning"],["성인학습","adult learning"]],
- theory:[["Self-authorship (Baxter Magolda)","자기저작. 외부 기준에 기대던 대학생이 스스로 신념, 정체성, 관계를 정의하는 단계로 옮겨 가는 발달을 설명해요. '검사 결과가 아니라 경험 해석'이라는 계획서 관점과 잘 맞아요."],
-  ["Life design (Savickas et al.)","생애설계 패러다임. 진로를 고정된 적성 매칭이 아니라 삶 전체를 설계해 가는 과정으로 봐요."],
-  ["Narrative learning","내러티브 학습. 자기 이야기를 말하고 해석하며 배운다는 성인학습 관점이에요."],
-  ["Experiential learning (Kolb)","경험학습. 경험, 성찰, 개념화, 실험의 순환으로 '경험을 해석하는 학습'을 설명할 수 있어요."]],
- qs:[["자기이해를 어떻게 확인하거나 측정할 건가요?","면담과 성찰일지로 변화 과정을 질적으로 보고, 후속연구에서 척도를 활용한다고 답하세요."],
-  ["교양교육 개선이라는 실천적 결과물은 무엇인가요?","자기이해 교육의 구성요소와 운영 원리를 도출하는 것이라고 구체적으로 말하세요."],
-  ["세 연구안 중 무엇을 가장 하고 싶나요?","거의 반드시 나오는 질문이에요. 한 가지를 고르고 이유를 1분 안에 말할 수 있게 준비하세요."]],
- topic:"대학 신입생의 자기이해 교육, 진로·생애설계 교양교육, 진로정체성 형성"},
-];
 
 const PLAN = [
  {w:1,title:"용어와 친해지기",items:["용어 카드 전체 1회독 (카테고리별로)","기초 지문 2편 해석하기","KCI에서 「평생학습사회」 최근호 영문 초록 5편 읽기"]},
  {w:2,title:"문장 구조 익히기",items:["'다시 볼래요' 표시한 용어만 복습","중급 지문 4편 해석 + 모범 해석과 비교","「평생교육학연구」, 「Andragogy Today」 초록 10편 읽기"]},
- {w:3,title:"말로 해석하기",items:["도전 지문 2편을 소리 내어 읽고 말로 해석 (시간 재기)","AI로 내 관심 주제 지문 만들어 연습","내 석사논문 영문 초록 다시 읽고 1분 요약 연습"]},
+ {w:3,title:"말로 해석하기",items:["도전 지문 2편을 소리 내어 읽고 말로 해석 (시간 재기)","AI로 내 관심 주제 지문 만들어 연습",SHARE ? "내 연구 관심 주제의 영문 초록을 찾아 1분 요약 연습" : "내 석사논문 영문 초록 다시 읽고 1분 요약 연습"]},
  {w:4,title:"실전 모드",items:["처음 보는 지문 3분 안에 말로 해석하기","해석 후 '이 연구 어떻게 보세요?' 질문에 답하는 연습","전체 용어 최종 점검 (모르는 것 0개 목표)"]},
 ];
 
@@ -757,6 +693,7 @@ const TIPS = [
 ];
 
 // ---------- helpers ----------
+const TOUCH = (() => { try { return matchMedia("(pointer: coarse)").matches; } catch { return false; } })();
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => [...r.querySelectorAll(s)];
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -770,7 +707,7 @@ const lsSet = (k,v) => { try { localStorage.setItem(k,v); } catch {} };
 const blank = () => ({v:1, terms:{}, done:{}, days:{}, attempts:[], gen:[], plan:{}, interview:"", drafts:{}});
 let S = blank();
 const store = {kind:"local", ref:null, chain:Promise.resolve(), timer:null};
-const LS_KEY = "lle-state-v1";
+const LS_KEY = LSP + "state-v1";
 
 function loadLocal(){ try { const raw = lsGet(LS_KEY); if (raw) return Object.assign(blank(), JSON.parse(raw)); } catch {} return null; }
 function setSaveLabel(t){ $("#saveState").textContent = t; }
@@ -821,17 +758,18 @@ const errCopy = e => ({
 }[e?.code] || "Claude에게 묻지 못했어요. 잠시 뒤에 다시 시도해 주세요.");
 
 // ---------- tabs ----------
-let tab = lsGet("lle-tab") || "home";
+let tab = lsGet(LSP+"tab") || "home";
+if (!$("#tab-"+tab)) tab = "home";
 function showTab(t){
-  tab = t; lsSet("lle-tab", t);
+  tab = t; lsSet(LSP+"tab", t);
   $$(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t));
-  ["home","terms","read","mine","log"].forEach(x => $("#tab-"+x).hidden = x !== t);
+  ["home","terms","read","mine","log"].forEach(x => { const sec = $("#tab-"+x); if (sec) sec.hidden = x !== t; });
   hidePop(); stopTimer(); stopSpeak();
   render(t);
   window.scrollTo({top:0});
 }
 $$(".tabs button").forEach(b => b.onclick = () => showTab(b.dataset.tab));
-function render(t){ ({home:renderHome, terms:renderTerms, read:renderRead, mine:renderMine, log:renderLog})[t](); }
+function render(t){ ({home:renderHome, terms:renderTerms, read:renderRead, mine:typeof renderMine === "function" ? renderMine : renderHome, log:renderLog})[t](); }
 function renderAll(){ renderBadge(); render(tab); }
 
 // ---------- derived ----------
@@ -871,10 +809,10 @@ function renderHome(){
   const next = allPassages().find(p => !S.done[p.id]);
   el.innerHTML = `
   <div class="stack">
-    <div class="grid3">
+    <div class="grid3 stats">
       <div class="stat"><span class="small muted">외운 용어</span><b>${kc}<span class="muted small"> / ${T.length}</span></b><div class="bar"><i style="width:${Math.round(kc/T.length*100)}%"></i></div></div>
       <div class="stat"><span class="small muted">해석한 지문</span><b>${doneP}<span class="muted small"> / ${allPassages().length}</span></b><div class="bar"><i style="width:${Math.round(doneP/allPassages().length*100)}%"></i></div></div>
-      <div class="stat"><span class="small muted">연속 학습</span><b>${streak()}<span class="muted small"> 일</span></b><span class="small muted">오늘 용어 ${td.t||0}개 · 지문 ${td.p||0}편</span></div>
+      <div class="stat"><span class="small muted">연속 학습</span><b>${streak()}<span class="muted small"> 일</span></b><span class="small muted sub">오늘 용어 ${td.t||0}개 · 지문 ${td.p||0}편</span></div>
     </div>
 
     <div class="panel stack" style="gap:12px">
@@ -935,7 +873,7 @@ function renderTerms(){
   const t = deck[di];
   el.innerHTML = `
   <div class="stack">
-    <div class="row">${["전체",...CATS].map(c => `<button class="chip" data-cat="${esc(c)}" aria-pressed="${deckCat === c}">${esc(c)} <span class="muted num">${count(c)}</span></button>`).join("")}</div>
+    <div class="row chiprow">${["전체",...CATS].map(c => `<button class="chip" data-cat="${esc(c)}" aria-pressed="${deckCat === c}">${esc(c)} <span class="muted num">${count(c)}</span></button>`).join("")}</div>
     <div class="row between">
       <div class="row">
         <button class="chip" id="onlyUnknown" aria-pressed="${onlyUnknown}">아직 모르는 것만</button>
@@ -951,22 +889,20 @@ function renderTerms(){
         <div class="en">${esc(t.en)}</div>
         ${flipped ? `<div class="ko">${esc(t.ko)}</div>${t.ex ? `<div class="ex">${esc(t.ex)}</div>${t.exko ? `<div class="exko">${esc(t.exko)}</div>` : ""}` : ""}` : ""}
       </div>
-      <span class="hint">${flipped ? "1 다시 볼래요 · 2 알아요" : "눌러서 뜻 보기 · 스페이스"}</span>
+      <span class="hint">${TOUCH ? (flipped ? "← 밀면 다시 볼래요 · 밀면 알아요 →" : "탭해서 뜻 보기 · 좌우로 밀어서 분류") : (flipped ? "1 다시 볼래요 · 2 알아요" : "눌러서 뜻 보기 · 스페이스")}</span>
     </div>
-    <div class="row between">
-      <button class="btn ghost" id="speakTerm" ${"speechSynthesis" in window ? "" : "hidden"}>발음 듣기</button>
-      <div class="row">
-        <button class="btn" id="again">다시 볼래요</button>
-        <button class="btn primary" id="know">알아요</button>
-      </div>
-    </div>` : `
+    <div class="cardbar">
+      <button class="btn" id="again">다시 볼래요</button>
+      <button class="btn primary" id="know">알아요</button>
+    </div>
+    <div class="row" style="justify-content:center"><button class="btn ghost small" id="speakTerm" ${"speechSynthesis" in window ? "" : "hidden"}>발음 듣기</button></div>` : `
     <div class="panel stack" style="gap:10px;text-align:center">
       <h3>${deck.length ? "이 묶음을 다 봤어요" : "여기엔 남은 카드가 없어요"}</h3>
       <p class="muted small">${onlyUnknown ? "모르는 용어를 모두 외웠어요. 다른 카테고리도 확인해 보세요." : "한 번 더 돌리거나 '아직 모르는 것만'으로 복습해 보세요."}</p>
       <div class="row" style="justify-content:center"><button class="btn primary" id="restart">처음부터 다시</button></div>
     </div>`}
 
-    <details class="panel" id="termList" ${lsGet("lle-list") === "1" ? "open" : ""}>
+    <details class="panel" id="termList" ${lsGet(LSP+"list") === "1" ? "open" : ""}>
       <summary><b>전체 용어 목록</b> <span class="muted small">· 외운 용어 ${knownCount()}개</span></summary>
       <div class="stack" style="gap:10px;margin-top:12px">
         <input type="search" id="termSearch" placeholder="영어나 한국어로 찾기" value="${esc(termQuery)}">
@@ -978,12 +914,20 @@ function renderTerms(){
   $("#onlyUnknown").onclick = () => { onlyUnknown = !onlyUnknown; buildDeck(); renderTerms(); };
   $("#shuffle").onclick = () => { shuffled = !shuffled; buildDeck(); renderTerms(); };
   if (t) {
-    $("#card").onclick = () => { flipped = !flipped; renderTerms(); };
+    const card = $("#card"); let sx = null, dx = 0, moved = false;
+    card.addEventListener("pointerdown", e => { sx = e.clientX; dx = 0; moved = false; });
+    card.addEventListener("pointermove", e => {
+      if (sx == null) return; dx = e.clientX - sx; if (Math.abs(dx) > 8) moved = true;
+      if (moved) { card.style.transform = `translateX(${dx}px) rotate(${dx / 30}deg)`; card.dataset.dir = dx > 60 ? "know" : dx < -60 ? "again" : ""; }
+    });
+    const end = () => { if (sx == null) return; sx = null; if (Math.abs(dx) > 90) { mark(dx > 0 ? "known" : "again"); return; } card.style.transform = ""; card.dataset.dir = ""; };
+    card.addEventListener("pointerup", end); card.addEventListener("pointercancel", end); card.addEventListener("pointerleave", end);
+    card.onclick = () => { if (moved) { moved = false; return; } flipped = !flipped; renderTerms(); };
     $("#again").onclick = () => mark("again");
     $("#know").onclick = () => mark("known");
     $("#speakTerm").onclick = () => speak(t.en);
   } else $("#restart").onclick = () => { buildDeck(); renderTerms(); };
-  $("#termList").ontoggle = e => lsSet("lle-list", e.target.open ? "1" : "0");
+  $("#termList").ontoggle = e => lsSet(LSP+"list", e.target.open ? "1" : "0");
   $("#termSearch").oninput = e => { termQuery = e.target.value; fillTermRows(); };
   fillTermRows();
 }
@@ -1013,7 +957,7 @@ function speak(text){
 function stopSpeak(){ try { speechSynthesis.cancel(); } catch {} }
 
 // ---------- read ----------
-let backTo = "read", curP = null, showHints = lsGet("lle-hints") !== "0", timerId = null, timerStart = 0, revealed = new Set(), fbCtl = null, genCtl = null, pasteOpen = false;
+let backTo = "read", curP = null, showHints = lsGet(LSP+"hints") !== "0", timerId = null, timerStart = 0, revealed = new Set(), fbCtl = null, genCtl = null, pasteOpen = false;
 function stopTimer(){ if (timerId) { clearInterval(timerId); timerId = null; } }
 function buildHL(extra){
   const list = [...T, ...(extra || []).filter(x => x && x.en && !T.some(t => t.en.toLowerCase() === x.en.toLowerCase()))
@@ -1169,9 +1113,9 @@ function renderPractice(){
   <div class="stack">
     <div class="row between">
       <button class="btn ghost" id="back">${backTo === "mine" ? "← 내 연구" : "← 지문 목록"}</button>
-      <div class="row">
-        <button class="btn" id="timerBtn"><span class="timer" id="timerTxt">00:00</span> <span id="timerLab">시간 재기</span></button>
-        <button class="btn" id="listenBtn" ${"speechSynthesis" in window ? "" : "hidden"}>원문 듣기</button>
+      <div class="row tools">
+        <button class="btn" id="timerBtn"><span class="timer" id="timerTxt">00:00</span> <span id="timerLab">시간</span></button>
+        <button class="btn" id="listenBtn" ${"speechSynthesis" in window ? "" : "hidden"}>듣기</button>
         <button class="chip" id="hintBtn" aria-pressed="${showHints}">용어 표시</button>
       </div>
     </div>
@@ -1224,11 +1168,11 @@ function renderPractice(){
   </div>`;
 
   $("#back").onclick = () => { stopTimer(); stopSpeak(); fbCtl?.abort(); if (backTo === "mine") { backTo = "read"; curP = null; showTab("mine"); } else { renderList(); window.scrollTo({top:0}); } };
-  $("#hintBtn").onclick = () => { showHints = !showHints; lsSet("lle-hints", showHints ? "1" : "0"); $("#abs").classList.toggle("hints", showHints); $("#hintBtn").setAttribute("aria-pressed", showHints); };
-  if (timerId) { $("#timerLab").textContent = "멈추기"; tick(); }
+  $("#hintBtn").onclick = () => { showHints = !showHints; lsSet(LSP+"hints", showHints ? "1" : "0"); $("#abs").classList.toggle("hints", showHints); $("#hintBtn").setAttribute("aria-pressed", showHints); };
+  if (timerId) { $("#timerLab").textContent = "멈춤"; tick(); }
   $("#timerBtn").onclick = () => {
-    if (timerId) { stopTimer(); $("#timerLab").textContent = "다시 재기"; }
-    else { timerStart = Date.now(); timerId = setInterval(tick, 500); tick(); $("#timerLab").textContent = "멈추기"; }
+    if (timerId) { stopTimer(); $("#timerLab").textContent = "다시"; }
+    else { timerStart = Date.now(); timerId = setInterval(tick, 500); tick(); $("#timerLab").textContent = "멈춤"; }
   };
   $("#listenBtn").onclick = () => {
     const sents = $$(".sent", el); let i = 0;
@@ -1324,101 +1268,6 @@ function drawFb(r){
 function openPassage(id, from){
   curP = id; backTo = from; revealed = new Set(); lastFb = null;
   if (tab !== "read") showTab("read"); else { renderPractice(); window.scrollTo({top:0}); }
-}
-
-// ---------- my research ----------
-let rSel = lsGet("lle-rsel") || "r1", showRqEn = false;
-function renderMine(){
-  const el = $("#tab-mine");
-  const r = RESEARCH.find(x => x.id === rSel) || RESEARCH[0];
-  const ps = allPassages().filter(p => p.rid === r.id);
-  const myTerms = T.filter(t => t.cat === "내 연구");
-  const known = myTerms.filter(t => S.terms[t.en] === "known").length;
-  el.innerHTML = `
-  <div class="stack">
-    <div class="stack" style="gap:6px">
-      <h2>내 연구 주제로 공부하기</h2>
-      <p class="muted">박사과정 진학상담용으로 쓴 연구계획서를 바탕으로 만들었어요. 표시를 보고 구분하세요.</p>
-      <div class="row small"><span class="drafttag">내 계획서</span><span class="muted">내가 쓴 아이디어</span>
-        <span class="tag-theory">기존 이론</span><span class="muted">이미 있는 이론과 개념</span>
-        <span class="tag-fake">가상 지문</span><span class="muted">연습용으로 지어낸 초록</span></div>
-    </div>
-
-    <div class="draft stack" style="gap:10px">
-      <div class="row between"><span class="drafttag">내 계획서 · 공통 문제의식</span><button class="btn ghost small" id="sayQ" ${"speechSynthesis" in window ? "" : "hidden"}>영어 듣기</button></div>
-      <p style="font-weight:700;font-size:1.08rem">“${esc(COMMON_Q[0])}”</p>
-      <p class="muted" style="font-size:.96rem">${esc(COMMON_Q[1])}</p>
-      <p class="note">면접에서 "연구하고 싶은 게 뭐예요?"라고 물으면 이 한 문장으로 시작하세요.</p>
-    </div>
-
-    <div class="seg" role="group" aria-label="연구안 선택">${RESEARCH.map((x,i) => `<button data-r="${x.id}" aria-pressed="${x.id === r.id}">연구안 ${i+1} · ${esc(x.short)}</button>`).join("")}</div>
-
-    <div class="draft stack" style="gap:14px">
-      <span class="drafttag">내 계획서 · 연구안 ${RESEARCH.indexOf(r)+1}</span>
-      <div class="stack" style="gap:4px">
-        <h3 style="font-size:1.15rem">${esc(r.title)}</h3>
-        <p class="muted small">― ${esc(r.sub)} ― · ${esc(r.target)}</p>
-        <p class="muted" style="font-size:.94rem;margin-top:4px"><b style="color:var(--ink)">영문 제목</b> ${esc(r.en)}</p>
-      </div>
-      <div class="stack" style="gap:4px"><b class="small">연구 목적</b><p>${esc(r.purpose)}</p></div>
-      <div class="stack" style="gap:4px">
-        <div class="row between"><b class="small">연구질문</b><button class="chip" id="rqEn" aria-pressed="${showRqEn}">영어로도 보기</button></div>
-        <div>${r.rq.map(([ko,en],i) => `<div class="rq"><span>${"①②③④"[i]} ${esc(ko)}</span>${showRqEn ? `<span class="en">${esc(en)}</span>` : ""}</div>`).join("")}</div>
-      </div>
-      <div class="stack" style="gap:4px"><b class="small">연구방법 (안)</b><p>${esc(r.method)}</p></div>
-      <div class="stack" style="gap:6px"><b class="small">핵심 키워드</b><div class="kwrow">${r.kw.map(([ko,en]) => `<span class="kw2"><b>${esc(ko)}</b> <span class="muted">${esc(en)}</span></span>`).join("")}</div></div>
-    </div>
-
-    <div class="panel stack" style="gap:10px">
-      <div class="row between"><span class="tag-theory">기존 이론 · 함께 읽어 볼 개념</span></div>
-      <p class="small muted">계획서에 이론적 틀로 연결해 볼 만한 것들이에요. 영어 초록에서 자주 만나는 이름이라 미리 알아 두면 좋아요.</p>
-      <div>${r.theory.map(([en,ko]) => `<div class="qa"><b>${esc(en)}</b><span class="muted small">${esc(ko)}</span></div>`).join("")}</div>
-    </div>
-
-    <div class="panel stack" style="gap:12px">
-      <div class="row between"><span class="tag-fake">가상 지문 · 이 주제로 해석 연습</span></div>
-      <div class="plist">${ps.map(p => { const d = S.done[p.id]; return `<button class="pcard" data-mp="${p.id}">
-        <div class="row between"><span class="pill lv-${esc(p.level)}">${esc(p.level)}</span><span class="small muted">${p.ai ? "Claude가 만듦" : "기본 제공"}</span></div>
-        <h3>${esc(p.title)}</h3>
-        <span class="status ${d ? "ok" : ""}">${d ? `해석함 · ${fmtDate(d.date)}` : "아직 안 함"}</span></button>`; }).join("")}</div>
-      <div class="row">
-        <select id="mGenLevel" aria-label="난이도"><option>기초</option><option selected>중급</option><option>도전</option></select>
-        <button class="btn primary" id="mGenBtn">이 주제로 새 지문 만들기</button>
-      </div>
-      <div id="mGenOut" class="small"></div>
-    </div>
-
-    <div class="panel stack" style="gap:10px">
-      <h3>실제 초록 찾을 검색어</h3>
-      <p class="small muted">KCI에서 이 검색어로 논문을 찾아 영문·국문 초록을 '초록 해석' 탭의 <b>직접 붙여넣기</b>에 넣으면 연습 지문이 돼요. 누르면 검색어가 복사돼요.</p>
-      <div class="kwrow">${r.search.map(q => `<button class="chip" data-copy="${esc(q)}">${esc(q)}</button>`).join("")}</div>
-      <div class="row"><a class="btn small" href="https://www.kci.go.kr" target="_blank" rel="noopener">KCI 열기</a><span class="small muted" id="copyNote"></span></div>
-    </div>
-
-    <div class="panel stack" style="gap:10px">
-      <h3>면접 예상 질문</h3>
-      <div>${r.qs.map(([q,a]) => `<div class="qa"><b>Q. ${esc(q)}</b><span class="muted small">${esc(a)}</span></div>`).join("")}</div>
-    </div>
-
-    <div class="panel stack" style="gap:10px">
-      <div class="row between"><h3>내 연구 용어</h3><span class="small muted num">알아요 ${known} / ${myTerms.length}</span></div>
-      <div class="bar"><i style="width:${Math.round(known/myTerms.length*100)}%"></i></div>
-      <p class="small muted">부모됨, 무전공, 자기이해, 진로정체성 관련 영어 용어 ${myTerms.length}개를 카드로 넣어 뒀어요.</p>
-      <div><button class="btn" id="mTerms">용어 카드로 외우기</button></div>
-    </div>
-  </div>`;
-  $$("[data-r]", el).forEach(b => b.onclick = () => { rSel = b.dataset.r; lsSet("lle-rsel", rSel); renderMine(); });
-  $$("[data-copy]", el).forEach(c => c.onclick = async () => {
-    const note = $("#copyNote");
-    try { await navigator.clipboard.writeText(c.dataset.copy); note.textContent = `'${c.dataset.copy}' 복사됨`; }
-    catch { note.textContent = `복사가 안 돼요. 직접 입력해 주세요: ${c.dataset.copy}`; }
-  });
-  $("#rqEn").onclick = () => { showRqEn = !showRqEn; renderMine(); };
-  $("#sayQ").onclick = () => speak(COMMON_Q[1]);
-  $$("[data-mp]", el).forEach(b => b.onclick = () => openPassage(b.dataset.mp, "mine"));
-  $("#mGenBtn").onclick = () => genPassage({topic:r.topic, level:$("#mGenLevel").value, out:$("#mGenOut"), btn:$("#mGenBtn"), rid:r.id});
-  $("#mTerms").onclick = () => { deckCat = "내 연구"; onlyUnknown = false; buildDeck(); showTab("terms"); };
-  getSample().then(s => { if (!s) { $("#mGenBtn").hidden = true; $("#mGenLevel").hidden = true; } });
 }
 
 // ---------- log ----------
