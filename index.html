@@ -236,6 +236,26 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
   .task .row.between > span{min-width:0}
   .task .row.between .btn{flex:none}
 }
+
+.seg2{grid-template-columns:repeat(2,1fr)}
+.slash{color:var(--accent);font-weight:800}
+.chunk{border-radius:4px;transition:background .2s}
+.chunk.cur{background:color-mix(in srgb,var(--accent) 22%,transparent)}
+.jds{display:grid;gap:6px;padding:12px 0;border-top:1px solid var(--line)}
+.jds:first-child{border-top:0;padding-top:0}
+.jdn{font-size:.76rem;font-weight:700;color:var(--muted)}
+.jdrow{all:unset;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:11px 14px;border-radius:12px;background:var(--surface2);cursor:pointer;line-height:1.5}
+.jdrow:focus-visible{outline:2px solid var(--accent)}
+.jde{font-weight:600}
+.jdk{color:var(--muted);font-size:.94rem}
+.jdrow.open{background:var(--accent-soft)}
+.jdrow.open .jdk{color:var(--ink);font-weight:600}
+.nextbar{position:sticky;bottom:12px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;padding:8px;border-radius:18px;background:var(--surface);box-shadow:0 8px 28px rgb(0 30 60 / .14);z-index:4}
+@media (max-width:640px){
+  .jdrow{grid-template-columns:1fr;gap:4px}
+  .nextbar{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .nextbar .btn{min-height:50px}
+}
 .savebar{margin-top:32px;font-size:.82rem;color:var(--muted);text-align:center}
 .confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 14px;background:color-mix(in srgb,var(--bad) 10%,var(--surface));border-radius:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:active,.pcard:active{transform:none}}
@@ -1109,6 +1129,7 @@ function renderPractice(){
   const draft = S.drafts[p.id] || "";
   const hist = S.attempts.filter(a => a.pid === p.id).slice(-5).reverse();
   const d = S.done[p.id];
+  const JD = typeof jdBind === "function", jd = JD && jdMode;
   el.innerHTML = `
   <div class="stack">
     <div class="row between">
@@ -1120,14 +1141,16 @@ function renderPractice(){
       </div>
     </div>
 
+    ${JD ? jdSeg() : ""}
     ${p.rid ? `<div class="banner"><span class="tag-fake">가상 지문</span><span>내 연구계획서 주제로 만든 연습용 초록이에요. 실제로 수행된 연구나 결과가 아니에요.</span></div>` : ""}
     <article class="journal">
       <div class="jhead"><span>Abstract</span><span class="pill lv-${esc(p.level)}" style="letter-spacing:0">${esc(p.level)}</span></div>
       <h2 style="font-size:1.15rem">${esc(p.title)}</h2>
-      <p class="abs ${showHints ? "hints" : ""}" id="abs">${p.s.map(([en], i) => `<span class="sent" data-i="${i}">${hl(en, H)}</span>`).join(" ")}</p>
+      <p class="abs ${showHints ? "hints" : ""}" id="abs">${jd ? jdAbs(p, H) : p.s.map(([en], i) => `<span class="sent" data-i="${i}">${hl(en, H)}</span>`).join(" ")}</p>
       ${kws.length ? `<p class="kw"><b>Keywords:</b> ${kws.map(esc).join(", ")}</p>` : ""}
     </article>
 
+    ${jd ? jdPanel(p) : ""}
     <div class="panel stack" style="gap:10px">
       <div class="row between"><h3>내 해석</h3><span class="small muted">말로 해석했다면 비워 두고 자가평가만 남겨도 돼요</span></div>
       <textarea id="mine" placeholder="본 연구는 ...">${esc(draft)}</textarea>
@@ -1185,6 +1208,7 @@ function renderPractice(){
   $$("[data-rev]", el).forEach(b => b.onclick = () => { revealed.add(+b.dataset.rev); keepScroll(renderPractice); });
   $$("[data-self]", el).forEach(b => b.onclick = () => selfEval(p, +b.dataset.self));
   $("#fbBtn").onclick = () => feedback(p);
+  if (JD) jdBind(p, el);
   $("#fbStop").onclick = () => fbCtl?.abort();
   if (p.ai) $("#delGen").onclick = () => {
     $("#delWrap").innerHTML = `<div class="confirm"><span class="small">이 지문과 기록을 지울까요?</span><button class="btn small" id="delYes">지우기</button><button class="btn ghost small" id="delNo">취소</button></div>`;
@@ -1267,6 +1291,7 @@ function drawFb(r){
 
 function openPassage(id, from){
   curP = id; backTo = from; revealed = new Set(); lastFb = null;
+  if (typeof jdOpen !== "undefined") jdOpen = new Set();
   if (tab !== "read") showTab("read"); else { renderPractice(); window.scrollTo({top:0}); }
 }
 
