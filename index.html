@@ -256,6 +256,31 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
   .nextbar{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
   .nextbar .btn{min-height:50px}
 }
+
+.seg3{grid-template-columns:repeat(3,1fr)}
+.a4size{min-width:200px}
+.a4wrap{overflow:hidden;border-radius:6px}
+.a4{background:#fff;color:#111;transform-origin:top left;box-shadow:0 4px 24px rgb(0 0 0 / .12);padding:22px 20px 28px;border-radius:4px;color-scheme:light}
+.a4.real{width:794px;min-height:1123px;padding:76px 72px}
+.a4q{font-family:var(--f-body);font-size:13px;font-weight:700;margin:0 0 14px;color:#111}
+.a4.real .a4q{font-size:14.5px;margin-bottom:18px}
+.a4body{position:relative}
+.a4text p{margin:0;text-indent:1.5em}
+.a4text{position:relative;z-index:1;margin:0;font-family:"Times New Roman",Times,"Nimbus Roman","Liberation Serif",serif;font-size:16px;text-align:justify;hyphens:auto;-webkit-hyphens:auto;color:#111;letter-spacing:0}
+.a4.real .a4text{font-size:14.67px}
+.a4band{position:absolute;left:-8px;right:-8px;z-index:0;background:#FFE98A;border-radius:3px;transition:top .15s}
+.a4lno{position:absolute;left:-28px;width:20px;text-align:right;font:700 11px/1 var(--f-body);color:#0A8BD6;z-index:1}
+.a4.real .a4lno{left:-40px}
+@media (max-width:640px){.a4lno{left:-18px;width:14px;font-size:10px}.a4{padding-left:26px}}
+@media print{
+  @page{size:A4;margin:0}
+  body *{visibility:hidden!important}
+  .a4wrap,.a4wrap *{visibility:visible!important}
+  .a4wrap{position:absolute;left:0;top:0;height:auto!important;overflow:visible}
+  .a4{width:210mm!important;min-height:297mm;padding:20mm 19mm!important;transform:none!important;box-shadow:none;border-radius:0}
+  .a4text{font-size:11pt!important}
+  .a4band,.a4lno{display:none!important}
+}
 .savebar{margin-top:32px;font-size:.82rem;color:var(--muted);text-align:center}
 .confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 14px;background:color-mix(in srgb,var(--bad) 10%,var(--surface));border-radius:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:active,.pcard:active{transform:none}}
@@ -1019,7 +1044,7 @@ function renderList(){
     return `<button class="pcard" data-p="${p.id}">
       <div class="row between"><span class="pill lv-${esc(p.level)}">${esc(p.level)}</span>${p.ai ? `<span class="small muted">${p.pasted ? "직접 가져옴" : "AI가 만든 지문"}</span>` : ""}</div>
       <h3>${esc(p.title)}</h3>
-      <span class="small muted">${esc(p.topic)} · ${p.s.length}문장</span>
+      <span class="small muted">${esc(p.topic)} · ${p.s.length}문장${p.body ? ` · ${p.s.map(x => x[0]).join(" ").split(/\s+/).length}단어` : ""}</span>
       <span class="status ${d ? "ok" : ""}">${d ? `해석함 · ${fmtDate(d.date)} · ${["","많이 막힘","조금 막힘","막힘 없이"][d.self] || ""}` : "아직 안 함"}</span>
     </button>`; };
   el.innerHTML = `
@@ -1029,7 +1054,11 @@ function renderList(){
       <p class="muted">면접처럼 지문을 보고 그 자리에서 해석해 보세요. 노란 표시는 전공 용어예요. 누르면 뜻이 나와요.</p>
       <p class="small muted">기본 지문 ${PASSAGES.filter(p => !p.rid).length}편은 학술지 초록 문체로 새로 쓴 연습용 가상 초록이에요. 실제 논문은 KCI에서 찾아 아래 <b>직접 붙여넣기</b>로 연습하세요.</p>
     </div>
-    ${groups.map(g => { const ps = PASSAGES.filter(p => p.level === g && !p.rid); return `
+    ${PASSAGES.some(p => p.body) ? `<div class="stack" style="gap:10px">
+      <div class="stack" style="gap:2px"><h3>본문 지문 <span class="small muted">· 서론·이론적 배경 스타일</span></h3>
+      <p class="small muted">시험처럼 길고 인용이 섞인 본문이에요. 직독직역 모드나 A4 시험지 모드로 연습해 보세요.</p></div>
+      <div class="plist">${PASSAGES.filter(p => p.body).map(card).join("")}</div></div>` : ""}
+    ${groups.map(g => { const ps = PASSAGES.filter(p => p.level === g && !p.rid && !p.body); return `
       <div class="stack" style="gap:10px"><h3>${g}</h3><div class="plist">${ps.map(card).join("")}</div></div>`; }).join("")}
 
     <div class="panel stack" style="gap:12px" id="genPanel">
@@ -1129,7 +1158,7 @@ function renderPractice(){
   const draft = S.drafts[p.id] || "";
   const hist = S.attempts.filter(a => a.pid === p.id).slice(-5).reverse();
   const d = S.done[p.id];
-  const JD = typeof jdBind === "function", jd = JD && jdMode;
+  const JD = typeof jdBind === "function", jd = JD && jdMode === "jd", a4 = JD && jdMode === "a4";
   el.innerHTML = `
   <div class="stack">
     <div class="row between">
@@ -1143,10 +1172,12 @@ function renderPractice(){
 
     ${JD ? jdSeg() : ""}
     ${p.rid ? `<div class="banner"><span class="tag-fake">가상 지문</span><span>내 연구계획서 주제로 만든 연습용 초록이에요. 실제로 수행된 연구나 결과가 아니에요.</span></div>` : ""}
-    <article class="journal">
-      <div class="jhead"><span>Abstract</span><span class="pill lv-${esc(p.level)}" style="letter-spacing:0">${esc(p.level)}</span></div>
+    ${p.body ? `<div class="banner"><span class="tag-fake">연습 지문</span><span>본문 스타일로 새로 쓴 연습용 글이에요. 인용된 학자와 문헌은 실제 고전 문헌이지만, 문장은 원문 인용이 아니에요.</span></div>` : ""}
+    ${a4 ? a4View(p) : ""}
+    <article class="journal" ${a4 ? "hidden" : ""}>
+      <div class="jhead"><span>${p.body ? "Reading" : "Abstract"}</span><span class="pill lv-${esc(p.level)}" style="letter-spacing:0">${esc(p.level)}</span></div>
       <h2 style="font-size:1.15rem">${esc(p.title)}</h2>
-      <p class="abs ${showHints ? "hints" : ""}" id="abs">${jd ? jdAbs(p, H) : p.s.map(([en], i) => `<span class="sent" data-i="${i}">${hl(en, H)}</span>`).join(" ")}</p>
+      <p class="abs ${showHints ? "hints" : ""}" id="abs" lang="en">${jd ? jdAbs(p, H) : p.s.map(([en], i) => `<span class="sent" data-i="${i}">${hl(en, H)}</span>`).join(" ")}</p>
       ${kws.length ? `<p class="kw"><b>Keywords:</b> ${kws.map(esc).join(", ")}</p>` : ""}
     </article>
 
