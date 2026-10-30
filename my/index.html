@@ -281,6 +281,30 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
   .a4text{font-size:11pt!important}
   .a4band,.a4lno{display:none!important}
 }
+
+.radio-now{display:grid;justify-items:center;text-align:center;gap:8px;padding:34px 20px 26px;border-radius:24px;background:var(--surface);box-shadow:0 8px 30px rgb(0 40 80 / .06);min-height:250px;align-content:center;transition:box-shadow .2s}
+.radio-now .ren{font-size:1.9rem;font-weight:800;letter-spacing:-.03em;line-height:1.25;transition:color .2s}
+.radio-now .rko{font-size:1.35rem;font-weight:700;color:var(--muted);transition:color .2s}
+.radio-now[data-phase="en"] .ren{color:var(--accent)}
+.radio-now[data-phase="ko"] .rko{color:var(--accent)}
+.radio-now[data-phase="en"],.radio-now[data-phase="ko"],.radio-now[data-phase="ex"]{box-shadow:0 0 0 3px var(--accent-soft),0 8px 30px rgb(0 40 80 / .08)}
+.reps{display:flex;gap:8px;margin-top:6px}
+.reps i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.reps i.done{background:var(--accent)}
+.reps i.now{background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.rex{font-size:.95rem;color:var(--muted);max-width:46ch;margin-top:6px}
+.rex span{color:var(--ink);font-weight:500}
+.rctl{display:grid;grid-template-columns:1fr 2fr 1fr;gap:10px}
+.rctl .btn{min-height:60px;border-radius:18px;font-size:1.05rem}
+.rctl svg{width:22px;height:22px;fill:currentColor}
+.radiopill{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:6px;align-items:center;max-width:min(560px,calc(100% - 24px));padding:6px;border-radius:999px;background:var(--ink);color:var(--surface);box-shadow:0 8px 24px rgb(0 0 0 / .25)}
+.radiopill button{all:unset;cursor:pointer}
+.radiopill .rp-go{display:flex;gap:8px;align-items:center;padding:6px 10px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:.86rem}
+.radiopill .rp-go span:last-child{overflow:hidden;text-overflow:ellipsis}
+.radiopill .rp-x{padding:8px 14px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.84rem;flex:none}
+.rp-dot{width:8px;height:8px;border-radius:50%;background:#3CCB8E;flex:none}
+@media (prefers-reduced-motion:no-preference){.rp-dot{animation:rp 1.2s ease-in-out infinite}@keyframes rp{50%{opacity:.3}}}
+@media (max-width:640px){.radiopill{bottom:calc(80px + env(safe-area-inset-bottom,0px))}.radio-now .ren{font-size:1.65rem}}
 .savebar{margin-top:32px;font-size:.82rem;color:var(--muted);text-align:center}
 .confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 14px;background:color-mix(in srgb,var(--bad) 10%,var(--surface));border-radius:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:active,.pcard:active{transform:none}}
@@ -935,7 +959,8 @@ function showTab(t){
   tab = t; lsSet(LSP+"tab", t);
   $$(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t));
   ["home","terms","read","mine","log"].forEach(x => { const sec = $("#tab-"+x); if (sec) sec.hidden = x !== t; });
-  hidePop(); stopTimer(); stopSpeak();
+  hidePop(); stopTimer(); if (!(typeof radio !== "undefined" && radio.playing)) stopSpeak();
+  if (typeof radioPaint === "function") radioPaint();
   render(t);
   window.scrollTo({top:0});
 }
@@ -1038,12 +1063,14 @@ function buildDeck(){
   di = 0; flipped = false;
 }
 function renderTerms(){
+  if (typeof radioView === "function" && termsMode === "radio") return radioView();
   if (!deck.length && di === 0) buildDeck();
   const el = $("#tab-terms");
   const count = c => T.filter(t => c === "전체" || t.cat === c).length;
   const t = deck[di];
   el.innerHTML = `
   <div class="stack">
+    ${typeof radioView === "function" ? termsSeg() : ""}
     <div class="row chiprow">${["전체",...CATS].map(c => `<button class="chip" data-cat="${esc(c)}" aria-pressed="${deckCat === c}">${esc(c)} <span class="muted num">${count(c)}</span></button>`).join("")}</div>
     <div class="row between">
       <div class="row">
@@ -1081,6 +1108,7 @@ function renderTerms(){
       </div>
     </details>
   </div>`;
+  if (typeof radioView === "function") bindTermsSeg(el);
   $$("[data-cat]", el).forEach(b => b.onclick = () => { deckCat = b.dataset.cat; buildDeck(); renderTerms(); });
   $("#onlyUnknown").onclick = () => { onlyUnknown = !onlyUnknown; buildDeck(); renderTerms(); };
   $("#shuffle").onclick = () => { shuffled = !shuffled; buildDeck(); renderTerms(); };
@@ -1115,6 +1143,7 @@ function mark(status){
 }
 document.addEventListener("keydown", e => {
   if (tab !== "terms" || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if (typeof radioView === "function" && termsMode === "radio") { if (e.key === " ") { e.preventDefault(); radioToggle(); } return; }
   if (e.key === " ") { e.preventDefault(); if (deck[di]) { flipped = !flipped; renderTerms(); } }
   else if (e.key === "1") mark("again");
   else if (e.key === "2") mark("known");
@@ -1127,6 +1156,159 @@ function speak(text){
 }
 function stopSpeak(){ try { speechSynthesis.cancel(); } catch {} }
 
+// ---------- 라디오 (용어 듣기) ----------
+let termsMode = lsGet(LSP+"tmode") === "radio" ? "radio" : "card";
+const radio = {playing:false, token:0, list:[], i:+(lsGet(LSP+"ri") || 0), rep:0, phase:"",
+  cat:lsGet(LSP+"rcat") || "전체", times:+(lsGet(LSP+"rtimes") || 3), rate:+(lsGet(LSP+"rrate") || 0.9),
+  ex:lsGet(LSP+"rex") === "1", shuffle:lsGet(LSP+"rshuf") === "1", wake:null, u:null, built:false};
+const RATES = [[0.75,"느리게"],[0.9,"보통"],[1.05,"빠르게"]];
+function termsSeg(){
+  return `<div class="seg seg2" role="group" aria-label="용어 공부 방식"><button data-tmode="card" aria-pressed="${termsMode === "card"}">카드</button><button data-tmode="radio" aria-pressed="${termsMode === "radio"}">라디오</button></div>`;
+}
+function bindTermsSeg(el){
+  $$("[data-tmode]", el).forEach(b => b.onclick = () => { termsMode = b.dataset.tmode; lsSet(LSP+"tmode", termsMode); renderTerms(); });
+}
+function radioBuild(keepPos){
+  const l = T.filter(t => radio.cat === "전체" || (radio.cat === "모르는 것만" ? S.terms[t.en] !== "known" : t.cat === radio.cat));
+  if (radio.shuffle) for (let i = l.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [l[i], l[j]] = [l[j], l[i]]; }
+  radio.list = l; radio.built = true;
+  if (!keepPos || radio.i >= l.length) radio.i = 0;
+}
+const enSay = x => x.replace(/\s*\/\s*/g, ", ");
+const koSay = x => x.replace(/~/g, "").replace(/[()]/g, ", ").replace(/·/g, ", ").replace(/\s*,\s*,/g, ",").trim();
+function pickVoice(lang){
+  try {
+    const vs = speechSynthesis.getVoices(), pre = lang.slice(0, 2);
+    return vs.find(v => v.lang.replace("_", "-") === lang && /google|siri|premium|enhanced|yuna|samantha/i.test(v.name))
+      || vs.find(v => v.lang.replace("_", "-") === lang) || vs.find(v => v.lang.startsWith(pre)) || null;
+  } catch { return null; }
+}
+function say(text, lang, rate){
+  return new Promise(res => {
+    let done = false; const fin = () => { if (!done) { done = true; res(); } };
+    try {
+      const u = new SpeechSynthesisUtterance(text); u.lang = lang; u.rate = rate;
+      const v = pickVoice(lang); if (v) u.voice = v;
+      u.onend = fin; u.onerror = fin; radio.u = u;
+      speechSynthesis.speak(u);
+      setTimeout(fin, 4000 + text.length * 180);
+    } catch { fin(); }
+  });
+}
+const nap = ms => new Promise(r => setTimeout(r, ms));
+async function radioRun(){
+  const tok = ++radio.token;
+  const alive = () => radio.playing && tok === radio.token;
+  try { speechSynthesis.cancel(); } catch {}
+  await nap(150);
+  while (alive() && radio.list.length) {
+    const t = radio.list[radio.i];
+    for (radio.rep = 1; radio.rep <= radio.times; radio.rep++) {
+      radio.phase = "en"; radioPaint();
+      await say(enSay(t.en), "en-US", radio.rate); if (!alive()) return;
+      await nap(450); if (!alive()) return;
+      radio.phase = "ko"; radioPaint();
+      await say(koSay(t.ko), "ko-KR", Math.min(1.15, radio.rate + 0.1)); if (!alive()) return;
+      await nap(radio.rep < radio.times ? 700 : 1000); if (!alive()) return;
+    }
+    if (radio.ex && t.ex) {
+      radio.phase = "ex"; radioPaint();
+      await say(t.ex, "en-US", radio.rate); if (!alive()) return;
+      await nap(400); if (!alive()) return;
+      if (t.exko) { await say(koSay(t.exko), "ko-KR", Math.min(1.15, radio.rate + 0.1)); if (!alive()) return; }
+      await nap(1000); if (!alive()) return;
+    }
+    radio.i = (radio.i + 1) % radio.list.length; radio.rep = 0; lsSet(LSP+"ri", String(radio.i));
+    radioPaint();
+  }
+}
+async function wakeOn(){ try { if (navigator.wakeLock && !radio.wake) { radio.wake = await navigator.wakeLock.request("screen"); radio.wake.addEventListener?.("release", () => { radio.wake = null; }); } } catch { radio.wake = null; } }
+function wakeOff(){ try { radio.wake?.release(); } catch {} radio.wake = null; }
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && radio.playing) wakeOn(); });
+function radioPlay(){
+  if (!("speechSynthesis" in window)) return;
+  if (!radio.built) radioBuild(true);
+  if (!radio.list.length) return;
+  radio.playing = true; wakeOn(); radioRun(); radioPaint();
+}
+function radioPause(){ radio.playing = false; radio.token++; radio.phase = ""; try { speechSynthesis.cancel(); } catch {} wakeOff(); radioPaint(); }
+function radioToggle(){ radio.playing ? radioPause() : radioPlay(); }
+function radioJump(d){
+  if (!radio.built) radioBuild(true);
+  if (!radio.list.length) return;
+  radio.i = (radio.i + d + radio.list.length) % radio.list.length; radio.rep = 0; lsSet(LSP+"ri", String(radio.i));
+  if (radio.playing) radioRun(); radioPaint();
+}
+function radioPaint(){
+  let pill = $("#radioPill");
+  if (!pill) { pill = document.createElement("div"); pill.id = "radioPill"; pill.className = "radiopill"; pill.hidden = true; document.body.appendChild(pill); }
+  const t = radio.list[radio.i];
+  pill.hidden = !(radio.playing && tab !== "terms");
+  if (!pill.hidden && t) {
+    pill.innerHTML = `<button class="rp-go" id="rpGo"><span class="rp-dot"></span><span><b>${esc(t.en)}</b> · ${esc(t.ko)}</span></button><button class="rp-x" id="rpStop" aria-label="일시정지">일시정지</button>`;
+    $("#rpGo").onclick = () => showTab("terms"); $("#rpStop").onclick = radioPause;
+  }
+  if (tab !== "terms" || termsMode !== "radio" || !$("#rNow")) return;
+  $("#rEn").textContent = t ? t.en : "들을 용어가 없어요";
+  $("#rKo").textContent = t ? t.ko : "범위를 바꿔 보세요";
+  $("#rPos").textContent = t ? `${radio.i + 1} / ${radio.list.length} · ${t.cat}` : "0 / 0";
+  $("#rRep").innerHTML = Array.from({length:radio.times}, (_, k) => `<i class="${radio.rep > radio.times || radio.phase === "ex" || k < radio.rep - 1 ? "done" : (k === radio.rep - 1 && radio.playing ? "now" : "")}"></i>`).join("");
+  $("#rNow").dataset.phase = radio.playing ? radio.phase : "";
+  const ex = $("#rEx"); ex.hidden = !(t && radio.ex && t.ex); if (t) ex.innerHTML = `${esc(t.ex)}${t.exko ? `<br><span>${esc(t.exko)}</span>` : ""}`;
+  $("#rPlay").innerHTML = radio.playing
+    ? `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>일시정지`
+    : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>재생`;
+}
+function radioView(){
+  if (!radio.built) radioBuild(true);
+  const el = $("#tab-terms");
+  const ok = "speechSynthesis" in window;
+  const cats = ["전체", "모르는 것만", ...CATS];
+  el.innerHTML = `
+  <div class="stack">
+    ${termsSeg()}
+    <div class="radio-now" id="rNow">
+      <span class="small muted num" id="rPos"></span>
+      <div class="ren" id="rEn"></div>
+      <div class="rko" id="rKo"></div>
+      <div class="reps" id="rRep" aria-label="반복 횟수"></div>
+      <div class="rex" id="rEx" hidden></div>
+    </div>
+    <div class="rctl">
+      <button class="btn" id="rPrev" aria-label="이전 용어"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+      <button class="btn primary" id="rPlay" ${ok ? "" : "disabled"}></button>
+      <button class="btn" id="rNext" aria-label="다음 용어"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+    </div>
+    ${ok ? "" : `<p class="err">이 브라우저는 음성 읽기를 지원하지 않아요. 휴대폰의 Safari나 Chrome에서 열어 주세요.</p>`}
+    <div class="panel stack" style="gap:14px">
+      <div class="stack" style="gap:6px"><b class="small">들을 범위</b>
+        <div class="row chiprow">${cats.map(c => `<button class="chip" data-rcat="${esc(c)}" aria-pressed="${radio.cat === c}">${esc(c)}</button>`).join("")}</div></div>
+      <div class="grid2" style="gap:12px">
+        <div class="stack" style="gap:6px"><b class="small">한 용어당 반복</b>
+          <div class="seg seg3">${[1,2,3].map(n => `<button data-rtimes="${n}" aria-pressed="${radio.times === n}">${n}번</button>`).join("")}</div></div>
+        <div class="stack" style="gap:6px"><b class="small">속도</b>
+          <div class="seg seg3">${RATES.map(([v, l]) => `<button data-rrate="${v}" aria-pressed="${radio.rate === v}">${l}</button>`).join("")}</div></div>
+      </div>
+      <div class="row">
+        <button class="chip" id="rExBtn" aria-pressed="${radio.ex}">예문도 듣기</button>
+        <button class="chip" id="rShuf" aria-pressed="${radio.shuffle}">섞기</button>
+      </div>
+    </div>
+    <p class="note">영어 발음 → 한국어 뜻을 한 세트로 ${radio.times}번 반복한 뒤 다음 용어로 넘어가요. 다른 탭으로 옮겨도 계속 재생돼요. 휴대폰 화면이 꺼지면 소리가 멈출 수 있어서, 재생 중에는 화면이 켜진 채로 유지되게 해 두었어요.</p>
+  </div>`;
+  bindTermsSeg(el);
+  $("#rPlay").onclick = radioToggle;
+  $("#rPrev").onclick = () => radioJump(-1);
+  $("#rNext").onclick = () => radioJump(1);
+  const reset = () => { radioBuild(false); if (radio.playing) radioRun(); radioView(); };
+  $$("[data-rcat]", el).forEach(b => b.onclick = () => { radio.cat = b.dataset.rcat; lsSet(LSP+"rcat", radio.cat); reset(); });
+  $$("[data-rtimes]", el).forEach(b => b.onclick = () => { radio.times = +b.dataset.rtimes; lsSet(LSP+"rtimes", String(radio.times)); radioView(); });
+  $$("[data-rrate]", el).forEach(b => b.onclick = () => { radio.rate = +b.dataset.rrate; lsSet(LSP+"rrate", String(radio.rate)); radioView(); });
+  $("#rExBtn").onclick = () => { radio.ex = !radio.ex; lsSet(LSP+"rex", radio.ex ? "1" : "0"); radioView(); };
+  $("#rShuf").onclick = () => { radio.shuffle = !radio.shuffle; lsSet(LSP+"rshuf", radio.shuffle ? "1" : "0"); reset(); };
+  try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => {}; } catch {}
+  radioPaint();
+}
 // ---------- read ----------
 let backTo = "read", curP = null, showHints = lsGet(LSP+"hints") !== "0", timerId = null, timerStart = 0, revealed = new Set(), fbCtl = null, genCtl = null, pasteOpen = false;
 function stopTimer(){ if (timerId) { clearInterval(timerId); timerId = null; } }

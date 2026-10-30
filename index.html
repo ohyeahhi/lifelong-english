@@ -281,6 +281,30 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
   .a4text{font-size:11pt!important}
   .a4band,.a4lno{display:none!important}
 }
+
+.radio-now{display:grid;justify-items:center;text-align:center;gap:8px;padding:34px 20px 26px;border-radius:24px;background:var(--surface);box-shadow:0 8px 30px rgb(0 40 80 / .06);min-height:250px;align-content:center;transition:box-shadow .2s}
+.radio-now .ren{font-size:1.9rem;font-weight:800;letter-spacing:-.03em;line-height:1.25;transition:color .2s}
+.radio-now .rko{font-size:1.35rem;font-weight:700;color:var(--muted);transition:color .2s}
+.radio-now[data-phase="en"] .ren{color:var(--accent)}
+.radio-now[data-phase="ko"] .rko{color:var(--accent)}
+.radio-now[data-phase="en"],.radio-now[data-phase="ko"],.radio-now[data-phase="ex"]{box-shadow:0 0 0 3px var(--accent-soft),0 8px 30px rgb(0 40 80 / .08)}
+.reps{display:flex;gap:8px;margin-top:6px}
+.reps i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.reps i.done{background:var(--accent)}
+.reps i.now{background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.rex{font-size:.95rem;color:var(--muted);max-width:46ch;margin-top:6px}
+.rex span{color:var(--ink);font-weight:500}
+.rctl{display:grid;grid-template-columns:1fr 2fr 1fr;gap:10px}
+.rctl .btn{min-height:60px;border-radius:18px;font-size:1.05rem}
+.rctl svg{width:22px;height:22px;fill:currentColor}
+.radiopill{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:6px;align-items:center;max-width:min(560px,calc(100% - 24px));padding:6px;border-radius:999px;background:var(--ink);color:var(--surface);box-shadow:0 8px 24px rgb(0 0 0 / .25)}
+.radiopill button{all:unset;cursor:pointer}
+.radiopill .rp-go{display:flex;gap:8px;align-items:center;padding:6px 10px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:.86rem}
+.radiopill .rp-go span:last-child{overflow:hidden;text-overflow:ellipsis}
+.radiopill .rp-x{padding:8px 14px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.84rem;flex:none}
+.rp-dot{width:8px;height:8px;border-radius:50%;background:#3CCB8E;flex:none}
+@media (prefers-reduced-motion:no-preference){.rp-dot{animation:rp 1.2s ease-in-out infinite}@keyframes rp{50%{opacity:.3}}}
+@media (max-width:640px){.radiopill{bottom:calc(80px + env(safe-area-inset-bottom,0px))}.radio-now .ren{font-size:1.65rem}}
 .savebar{margin-top:32px;font-size:.82rem;color:var(--muted);text-align:center}
 .confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 14px;background:color-mix(in srgb,var(--bad) 10%,var(--surface));border-radius:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:active,.pcard:active{transform:none}}
@@ -809,7 +833,8 @@ function showTab(t){
   tab = t; lsSet(LSP+"tab", t);
   $$(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t));
   ["home","terms","read","mine","log"].forEach(x => { const sec = $("#tab-"+x); if (sec) sec.hidden = x !== t; });
-  hidePop(); stopTimer(); stopSpeak();
+  hidePop(); stopTimer(); if (!(typeof radio !== "undefined" && radio.playing)) stopSpeak();
+  if (typeof radioPaint === "function") radioPaint();
   render(t);
   window.scrollTo({top:0});
 }
@@ -912,12 +937,14 @@ function buildDeck(){
   di = 0; flipped = false;
 }
 function renderTerms(){
+  if (typeof radioView === "function" && termsMode === "radio") return radioView();
   if (!deck.length && di === 0) buildDeck();
   const el = $("#tab-terms");
   const count = c => T.filter(t => c === "전체" || t.cat === c).length;
   const t = deck[di];
   el.innerHTML = `
   <div class="stack">
+    ${typeof radioView === "function" ? termsSeg() : ""}
     <div class="row chiprow">${["전체",...CATS].map(c => `<button class="chip" data-cat="${esc(c)}" aria-pressed="${deckCat === c}">${esc(c)} <span class="muted num">${count(c)}</span></button>`).join("")}</div>
     <div class="row between">
       <div class="row">
@@ -955,6 +982,7 @@ function renderTerms(){
       </div>
     </details>
   </div>`;
+  if (typeof radioView === "function") bindTermsSeg(el);
   $$("[data-cat]", el).forEach(b => b.onclick = () => { deckCat = b.dataset.cat; buildDeck(); renderTerms(); });
   $("#onlyUnknown").onclick = () => { onlyUnknown = !onlyUnknown; buildDeck(); renderTerms(); };
   $("#shuffle").onclick = () => { shuffled = !shuffled; buildDeck(); renderTerms(); };
@@ -989,6 +1017,7 @@ function mark(status){
 }
 document.addEventListener("keydown", e => {
   if (tab !== "terms" || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if (typeof radioView === "function" && termsMode === "radio") { if (e.key === " ") { e.preventDefault(); radioToggle(); } return; }
   if (e.key === " ") { e.preventDefault(); if (deck[di]) { flipped = !flipped; renderTerms(); } }
   else if (e.key === "1") mark("again");
   else if (e.key === "2") mark("known");
